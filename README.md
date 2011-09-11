@@ -14,8 +14,12 @@ Install
 
 `cp config/config_example.yml config/config.yml`
 
-API
-===
+Load environment in console
+`ruby bin/console`
+
+
+TODO
+====
 `http://localhost:4567/` 																: return rooms available now
 
 `http://localhost:4567/rooms` 													: return list of rooms
