@@ -1,0 +1,68 @@
+BEGIN:VCALENDAR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+PRODID:iCalendar-Ruby
+VERSION:2.0
+BEGIN:VEVENT
+DESCRIPTION:Un petit exemple de tests dans un environnement supposé hostile
+ \, mais pas tant que ça après tout.<br /><br />\n\nOuais\, désolé\, pas de 
+ NodeJS ou de MongoDB...\n\n par David
+DTEND:20110620T111500
+DTSTAMP:20110911T183727
+DTSTART:20110620T110000
+CLASS:PUBLIC
+LOCATION:AF83
+SEQUENCE:0
+SUMMARY:Toc toc ? Peut-être\, mais surtout Tap Tap...
+UID:2011-09-11T18:37:27+02:00_760557347@cannellito
+URL:http://ateliers.af83.com/prezs/18
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Présentation généraliste\, avec des exemples en Ruby (et/ou d'a
+ utres langages si j'ai le temps).\n\nObjectif : présenter un certain nombre
+  de pratiques usuelles mais pas forcément très usitées (par nous autres) po
+ ur écrire du code clair\, concis et robuste au changement.\n\nPêle-mêle ser
+ ont abordés les anti-buzzwords suivants :\n\n* normal workflows (message pa
+ ssing\, DCI\, goto/continuation\, fibers\, et même un peu de design pattern
+ s)\n* failure workflows (failure handling\, exceptions\, throw/catch\, faul
+ t-tolerance) par Jd
+DTEND:20110831T113000
+DTSTAMP:20110911T183727
+DTSTART:20110831T111500
+CLASS:PUBLIC
+LOCATION:AF83
+SEQUENCE:0
+SUMMARY:Écrire son code au fil de l'eau (sans se noyer)
+UID:2011-09-11T18:37:27+02:00_84261438@cannellito
+URL:http://ateliers.af83.com/prezs/52
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:« La metaprog\, c'est pour les kikoos. »\n\nC'est vrai\, mais v
+ ous aussi vous pouvez être un kikoo et rejoindre le camp de _why. Voyons en
+ semble quelques cas d'usages intéressants pour défricher un peu ce domaine 
+ par trop méconnu de Ruby\, la méta-programmation. Non\, parce que c'est vra
+ iment utile\, parfois. par Jd
+DTEND:20110831T114500
+DTSTAMP:20110911T183727
+DTSTART:20110831T113000
+CLASS:PUBLIC
+LOCATION:AF83
+SEQUENCE:0
+SUMMARY:Quelques exemples de metaprogramming utiles en Ruby
+UID:2011-09-11T18:37:27+02:00_684070780@cannellito
+URL:http://ateliers.af83.com/prezs/53
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:La prochaine étape dans la course au stockage le plus rapide du
+  monde. par Mathieu
+DTEND:20110907T120000
+DTSTAMP:20110911T183727
+DTSTART:20110907T114500
+CLASS:PUBLIC
+LOCATION:AF83
+SEQUENCE:0
+SUMMARY:Aprés NoSQL\, le NoDB
+UID:2011-09-11T18:37:27+02:00_519299580@cannellito
+URL:http://ateliers.af83.com/prezs/61
+END:VEVENT
+END:VCALENDAR

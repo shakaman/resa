@@ -1,0 +1,12 @@
+---
+  environment: development
+  chdir: /home/shakaman/www/resa
+  address: 127.0.0.1
+  port: 4567
+  pid: /home/shakaman/www/resa/tmp/thin.pid
+  rackup: /home/shakaman/www/resa/config/resa.ru
+  log: /home/shakaman/www/resa/log/thin.log
+  max_conns: 1024
+  timeout: 30
+  max_persistent_conns: 512
+  daemonize: false
