@@ -11,7 +11,7 @@ module Resa
 
     # Return list of rooms
     get '/rooms' do
-      Rooms.list
+      Room.list
     end
 
     # Return room's availability for the current day
