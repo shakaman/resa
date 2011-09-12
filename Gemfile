@@ -19,3 +19,7 @@ group :development do
   gem 'shotgun'
 end
 
+group :test do
+  gem 'minitest', '~>2.4.0'
+  gem 'rack-test', '~>0.6.1'
+end

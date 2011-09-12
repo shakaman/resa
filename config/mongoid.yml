@@ -1,3 +1,7 @@
 development:
   host: localhost
-  database: resa
+  database: resa_dev
+
+test:
+  host: localhost
+  database: resa_test
