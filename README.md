@@ -17,6 +17,10 @@ Install
 Load environment in console
 `ruby bin/console`
 
+Tests
+-----
+
+`bundle exec ruby test/resa_test.rb`
 
 TODO
 ====
