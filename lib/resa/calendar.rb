@@ -17,7 +17,9 @@ module Resa
       events = cal.events
 
       events.each do |e|
-        room = Resa::Room.find_or_create(e.location).first
+        room = Room.find_or_create(e.location).first
+        
+        room.flush_events
 
         room.events.create(
           title:    e.summary,

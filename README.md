@@ -24,11 +24,9 @@ Tests
 
 TODO
 ====
-`http://localhost:4567/` 																: return rooms available now
-
-`http://localhost:4567/rooms` 													: return list of rooms
-
-`http://localhost:4567/rooms/:room_id` 									: return room's availability for the current day
-
-`http://localhost:4567/rooms/:room_id/tomorrow` 				: return room's availability for the next day
+`http://localhost:4567/` 																					: return rooms available now
+`http://localhost:4567/rooms` 																		: return list of rooms
+`http://localhost:4567/rooms/:id` 																: return room's availability for the current day
+`http://localhost:4567/rooms/:id/reservations` 										: return room's availability for the day
+`http://localhost:4567/rooms/:id/reservations/:year/:month/:day`	: return room's availability for a day
 
