@@ -16,14 +16,6 @@ module Resa
       content_type 'application/json', :charset => 'utf-8'
     end
 
-   #before '/room/:id' do 
-   #  begin
-   #    @room = Room.where(:name => params[:id]).first
-   #rescue Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId
-   #    halt 404, '404 - Page not found'
-   #  end
-   #end
-
     # Return rooms available now
     get '/' do
     end
@@ -65,10 +57,10 @@ module Resa
       # end
     end
 
- get %r{/bonjour/([\w]+)} do
-    "Bonjour, #{params[:captures].first}!"
-  end
-
+    # return rooms available
+    get '/rooms/available' do
+      
+    end
 
     # 404
     not_found do
