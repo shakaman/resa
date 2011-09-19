@@ -1,0 +1,9 @@
+:rooms:
+  :cuisine: 'Cuisine'
+  :bas: 'Salle du bas'
+  :haut: 'Salle du haut'
+  :af83: 'Salle de test'
+:calendar:
+  :server: '/home/shakaman/www/resa/public/'
+  :test: 'reservation.ics'
+  :name: 'export.ics'
