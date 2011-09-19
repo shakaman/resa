@@ -9,5 +9,17 @@ module Resa
     # categories, alarms, contacts, duration, organizer
     
     embedded_in :room, :class_name => "Resa::Room"
+ 
+    # Convert event to iCalendar
+    def to_ics
+      event = Icalendar::Event.new
+
+      event.start         = self.dtstart
+      event.end           = self.dtend
+      event.summary       = self.title
+      event.location      = self.room.name 
+
+      event
+    end
   end
 end

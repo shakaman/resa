@@ -8,7 +8,7 @@ module Resa
     # Flush all events and re-import
     def self.import
       server = Resa.config[:calendar][:server]
-      ics = Resa.config[:calendar][:name]
+      ics = Resa.config[:calendar][:test]
       
       cal_file = open(server + ics).read
       
@@ -28,18 +28,29 @@ module Resa
         )
       end
     end
-  end
 
-  # Export calendar
-  def self.export
-    server = Resa.config[:calendar][:server]
-    ics = Resa.config[:calendar][:name]
+    # Export calendar
+    def self.export
+      server = Resa.config[:calendar][:server]
+      ics = Resa.config[:calendar][:name]
+
+      cal = Icalendar::Calendar.new
       
-    cal_file = open(server + ics).read
-    calendar = Icalendar.parse(cal_file)
-    
-    calendar.publish
-    content_type 'text/calendat', :charset => 'utf-8'
-    calendar.to_ical
+      rooms = Resa::Room.all
+      rooms.each do |room|
+        events = room.events
+
+        events.each do |event|
+          puts event.title
+          cal.add_event(event.to_ics)
+        end
+      end
+
+      cal.publish
+
+      export = File.new(server + ics, "w")
+      export.write(cal.to_ical)
+      export.close
+    end
   end
 end
