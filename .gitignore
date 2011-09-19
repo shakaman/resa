@@ -1,3 +1,5 @@
 tmp/*
 log/*
 config/config.yml
+TODO.md
+public/export.ics

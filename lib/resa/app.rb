@@ -4,6 +4,9 @@ require 'date'
 
 module Resa
   class App < Sinatra::Base
+    set :static, true
+    set :public, '/home/shakaman/www/resa/public'
+
     helpers do
       def find_room(id)
         @room = Room.where(:name => id).first
@@ -37,11 +40,6 @@ module Resa
       reservations = @room.reservations_for_a_day
       
       reservations.to_json
-      # unless reservations.empty?
-      #   reservations.to_json
-      # else
-      #   halt 404, '404 - Not available'
-      # end
     end
 
     # Return reservations for a day
@@ -50,11 +48,6 @@ module Resa
       reservations = @room.reservations_for_a_day("#{params[:year]}-#{params[:month]}-#{params[:day]}")
 
       reservations.to_json
-      # unless reservations.empty?
-      #   reservations.to_json
-      # else
-      #   halt 404, '404 - Not available'
-      # end
     end
 
     # return rooms available

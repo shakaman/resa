@@ -2,7 +2,7 @@
   environment: development
   chdir: /home/shakaman/www/resa
   address: 127.0.0.1
-  port: 4567
+  port: 3000
   pid: /home/shakaman/www/resa/tmp/thin.pid
   rackup: /home/shakaman/www/resa/config/resa.ru
   log: /home/shakaman/www/resa/log/thin.log
