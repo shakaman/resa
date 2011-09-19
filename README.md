@@ -4,6 +4,8 @@ RESA
 Requirements
 ------------
 
+ruby 1.9
+mkdir tmp
 Setup with `gem install bundler && bundle install`.
 Start with `bundle exec thin start -C config/development.yml`.
 Check http://localhost:4567/ with your $BROWSER of choice.
