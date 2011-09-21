@@ -2,6 +2,7 @@ module Resa
   class Event
     include Mongoid::Document
     field :title,       type: String
+    field :organizer,   type: String
     field :dtstart,     type: DateTime
     field :dtend,       type: DateTime
 
@@ -17,6 +18,7 @@ module Resa
       event.start         = self.dtstart
       event.end           = self.dtend
       event.summary       = self.title
+      event.organizer     = self.organizer
       event.location      = self.room.name 
 
       event

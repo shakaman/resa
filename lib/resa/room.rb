@@ -62,5 +62,30 @@ module Resa
     def availabilities
       self.events.where(:dtstart.gte => Time.now, :dtend.lte => Time.parse('23h59'))
     end
+    
+    # Returns all events of the day
+    def check_availability(dtstart=nil, dtend=nil)
+      if dtstart.nil? || dtend.nil?
+        return 'Date error'
+      end
+
+      reservations = Array.new
+      
+      # dtstart > start && dtend < end
+      reservations.concat self.events.where(:dtstart.gte => dtstart, :dtend.lte => dtend)
+
+      # dtstart < start && dtend > start && dtend < end
+      reservations.concat self.events.where(:dtstart.lte => dtstart, :dtend.gte => dtstart, :dtend.lte => dtend)
+
+      # dtstart > start && dtstart < end && dtend > end
+      reservations.concat self.events.where(:dtstart.gte => dtstart, :dtstart.lte => dtend, :dtend.gte => dtend)
+      
+      # dtstart < start && dtend > end
+      reservations.concat self.events.where(:dtstart.lte => dtstart, :dtend.gte => dtend)
+      
+      unless reservations.empty?
+        return 'Room not available'
+      end
+    end
   end
 end

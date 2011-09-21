@@ -22,9 +22,10 @@ module Resa
         room.flush_events
 
         room.events.create(
-          title:    e.summary,
-          dtstart:  e.dtstart,
-          dtend:    e.dtend
+          title:      e.summary,
+          organizer:  e.organizer,
+          dtstart:    e.dtstart,
+          dtend:      e.dtend
         )
       end
     end

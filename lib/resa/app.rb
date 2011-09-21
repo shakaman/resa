@@ -50,9 +50,31 @@ module Resa
       reservations.to_json
     end
 
-    # return rooms available
-    get '/rooms/available' do
+    # create new event
+    post '/reservations' do
+      data = JSON.parse(request.body.string)
       
+      if data.nil? then
+        status 404
+      else
+        # check if room exist
+        find_room(data[:room])
+
+        # check if date is in a good format
+        begin
+          Time.parse("#{data[:dtstart]}") && Time.parse("#{data[:dtend]}")
+        rescue
+          halt 404, '404 - Date error'
+        end
+          
+        # check if the room is available for this date
+        @room.check_availability(data[:dtstart], data[:dtend])
+
+        # create event
+
+        # export ical
+        # Calendar.export
+      end
     end
 
     # 404
