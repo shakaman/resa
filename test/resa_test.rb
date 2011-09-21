@@ -10,9 +10,72 @@ describe Resa do
     Resa::App
   end
 
-  it "list of rooms" do
+  before do
+    Resa::Calendar.import(:test)
+
+    # Fake dates.
+    dtstart = Time.parse('10:00')
+    dtend = Time.parse('19:00')
+
+    # Available rooms as seen in config.yml.
+    @rooms = {
+      "bas"     => "Salle du bas",
+      "haut"    => "Salle du haut",
+      "cuisine" => "Cuisine"
+    }
+
+    # Minimal field set to describe a new reservation.
+    @reservation = {
+      'room'    => 'bas',
+      'name'    => 'réunion super importante',
+      'dtstart' => dtstart,
+      'dtend'   => dtend
+    }
+  end
+
+  it "should return 404 on unavailable routes" do
+    get '/toto'
+    last_response.status.must_equal 404
+  end
+
+  it "list the rooms" do
     get '/rooms'
     last_response.status.must_equal 200
+    JSON.parse(last_response.body).must_equal @rooms
+  end
+
+  it "should list reservations for a specific room" do
+    get 'rooms/bas'
+    last_response.status.must_equal 200
+    res = JSON.parse(last_response.body)
+    res.must_be_kind_of Hash
+    res.keys.must_include 'events'
+    res.keys.must_include 'name'
+    res['events'].must_be_kind_of Array
+    res['name'].must_equal 'bas'
+    res['events'].first.must_include 'dtstart'
+    res['events'].first.must_include 'dtend'
+    res['events'].first.must_include 'title'
+    res['events'].first.must_include 'organizer'
+  end
+
+  #it "should list reservations for the current day" do
+    #get 'rooms/bas/reservations'
+    #last_response.status.must_equal 200
+    #res = JSON.parse(last_response.body)
+  #end
+
+  it "should list reservations for a specific date" do
+    get 'rooms/bas/reservations/2011/09/20'
+    last_response.status.must_equal 200
+    res = JSON.parse(last_response.body)
+    res.size.must_equal 1
+    res.first['title'].must_equal 'event 1'
+
+    get 'rooms/bas/reservations/2011/09/19'
+    last_response.status.must_equal 200
+    res = JSON.parse(last_response.body)
+    res.must_be_empty
   end
 
   # tests.ics

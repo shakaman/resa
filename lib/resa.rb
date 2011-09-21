@@ -22,12 +22,13 @@ module Resa
 
   # Initialize the application
   def self.initialize
+    Mongoid.logger = nil
     Mongoid.load! "#{self.root}/config/mongoid.yml"
     self.config = YAML.load_file(self.config_file)
   end
 
   protected
-  
+
   # Load my conf
   def self.config_file
     root.join 'config' '/config.yml'
