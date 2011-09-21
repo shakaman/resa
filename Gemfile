@@ -13,6 +13,9 @@ gem 'icalendar'
 # Serve with thin
 gem 'thin'
 
+# templating using haml
+gem 'haml'
+
 # development
 group :development do
   gem 'capistrano'

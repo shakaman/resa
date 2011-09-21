@@ -1,11 +1,13 @@
 # gems
 require 'sinatra/base'
 require 'date'
+require 'haml'
 
 module Resa
   class App < Sinatra::Base
     set :static, true
-    set :public, '/home/shakaman/www/resa/public'
+    set :public,  File.dirname(__FILE__) + '/../../public'
+    set :views, File.dirname(__FILE__) + '/../../views' 
 
     helpers do
       def find_room(id)
@@ -21,6 +23,8 @@ module Resa
 
     # Return rooms available now
     get '/' do
+      content_type 'text/html', :charset => 'utf-8'
+      haml :index, :format => :html5
     end
 
     # Return list of rooms
