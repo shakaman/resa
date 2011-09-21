@@ -1,7 +1,7 @@
 module Resa
   class Room
     include Mongoid::Document
-    field :name, type: String
+    field :name, :type => String
     embeds_many :events, :class_name => "Resa::Event"
 
     validates_uniqueness_of :name
