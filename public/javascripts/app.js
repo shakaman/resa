@@ -4,19 +4,19 @@ $(document).ready(function() {
 
     var Events = Backbone.Collection.extend({
         model: Event,
-        url: 'room/cuisine'
-    }); 
- 
+        url: 'rooms/cuisine'
+    });
+
     var EventsView = Backbone.View.extend({
         initialize: function(){
-            _.bindAll(this); 
+            _.bindAll(this);
 
             this.collection.bind('reset', this.addAll);
             this.collection.bind('add', this.addOne);
-            this.collection.bind('change', this.change);            
+            this.collection.bind('change', this.change);
             this.collection.bind('destroy', this.destroy);
-            
-            this.eventView = new EventView();            
+
+            this.eventView = new EventView();
         },
         render: function() {
             this.el.fullCalendar({
@@ -28,10 +28,10 @@ $(document).ready(function() {
                 selectable: true,
                 selectHelper: true,
                 editable: true,
-                ignoreTimezone: false,                
+                ignoreTimezone: false,
                 select: this.select,
                 eventClick: this.eventClick,
-                eventDrop: this.eventDropOrResize,        
+                eventDrop: this.eventDropOrResize,
                 eventResize: this.eventDropOrResize
             });
         },
@@ -40,11 +40,11 @@ $(document).ready(function() {
         },
         addOne: function(event) {
             this.el.fullCalendar('renderEvent', event.toJSON());
-        },        
+        },
         select: function(startDate, endDate) {
             this.eventView.collection = this.collection;
             this.eventView.model = new Event({start: startDate, end: endDate});
-            this.eventView.render();            
+            this.eventView.render();
         },
         eventClick: function(fcEvent) {
             this.eventView.model = this.collection.get(fcEvent.id);
@@ -55,29 +55,29 @@ $(document).ready(function() {
             var fcEvent = this.el.fullCalendar('clientEvents', event.get('id'))[0];
             fcEvent.title = event.get('title');
             fcEvent.color = event.get('color');
-            this.el.fullCalendar('updateEvent', fcEvent);           
+            this.el.fullCalendar('updateEvent', fcEvent);
         },
         eventDropOrResize: function(fcEvent) {
             // Lookup the model that has the ID of the event and update its attributes
-            this.collection.get(fcEvent.id).save({start: fcEvent.start, end: fcEvent.end});            
+            this.collection.get(fcEvent.id).save({start: fcEvent.start, end: fcEvent.end});
         },
         destroy: function(event) {
-            this.el.fullCalendar('removeEvents', event.id);         
-        }        
+            this.el.fullCalendar('removeEvents', event.id);
+        }
     });
 
     var EventView = Backbone.View.extend({
         el: $('#eventDialog'),
         initialize: function() {
-            _.bindAll(this);           
+            _.bindAll(this);
         },
         render: function() {
             var buttons = {'Ok': this.save};
             if (!this.model.isNew()) {
                 _.extend(buttons, {'Delete': this.destroy});
             }
-            _.extend(buttons, {'Cancel': this.close});            
-            
+            _.extend(buttons, {'Cancel': this.close});
+
             this.el.dialog({
                 modal: true,
                 title: (this.model.isNew() ? 'New' : 'Edit') + ' Event',
@@ -86,14 +86,14 @@ $(document).ready(function() {
             });
 
             return this;
-        },        
+        },
         open: function() {
             this.$('#title').val(this.model.get('title'));
-            this.$('#color').val(this.model.get('color'));            
-        },        
+            this.$('#color').val(this.model.get('color'));
+        },
         save: function() {
             this.model.set({'title': this.$('#title').val(), 'color': this.$('#color').val()});
-            
+
             if (this.model.isNew()) {
                 this.collection.create(this.model, {success: this.close});
             } else {
@@ -105,9 +105,9 @@ $(document).ready(function() {
         },
         destroy: function() {
             this.model.destroy({success: this.close});
-        }        
+        }
     });
-    
+
     var events = new Events();
     new EventsView({el: $("#main"), collection: events}).render();
     events.fetch();
