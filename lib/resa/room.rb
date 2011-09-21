@@ -32,7 +32,7 @@ module Resa
     def flush_events
       self.events.delete_all
     end
-    
+
     # Returns all events of the day
     def reservations_for_a_day(date=nil)
       if date.nil?
@@ -48,13 +48,13 @@ module Resa
 
       # <--yesterday<-->end
       reservations.concat self.events.where(:dtend.gte => Time.parse(date + ' 00h00'), :dtend.lte => Time.parse(date + ' 23h59'))
-      
+
       # start<-->tomorrow-->
       reservations.concat self.events.where(:dtstart.gte => Time.parse(date + ' 00h00'), :dtstart.lte => Time.parse(date + ' 23h59'))
-      
+
       # <--yesterday<-->start|--|end<-->tomorrow->>
       reservations.concat self.events.where(:dtstart.lte => Time.parse(date), :dtend.gte => Time.parse(date))
-      
+
       reservations.sort_by {|a| a.dtstart}
       reservations.uniq
     end
@@ -62,15 +62,18 @@ module Resa
     def availabilities
       self.events.where(:dtstart.gte => Time.now, :dtend.lte => Time.parse('23h59'))
     end
-    
-    # Returns all events of the day
-    def check_availability(dtstart=nil, dtend=nil)
+
+    # Returns all events of the day.
+    #
+    # @return [true, false]
+    #
+    def available?(dtstart=nil, dtend=nil)
       if dtstart.nil? || dtend.nil?
-        return 'Date error'
+        return false
       end
 
       reservations = Array.new
-      
+
       # dtstart > start && dtend < end
       reservations.concat self.events.where(:dtstart.gte => dtstart, :dtend.lte => dtend)
 
@@ -79,13 +82,15 @@ module Resa
 
       # dtstart > start && dtstart < end && dtend > end
       reservations.concat self.events.where(:dtstart.gte => dtstart, :dtstart.lte => dtend, :dtend.gte => dtend)
-      
+
       # dtstart < start && dtend > end
       reservations.concat self.events.where(:dtstart.lte => dtstart, :dtend.gte => dtend)
-      
+
       unless reservations.empty?
-        return 'Room not available'
+        return false
       end
+
+      true
     end
   end
 end

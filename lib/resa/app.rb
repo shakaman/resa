@@ -1,5 +1,6 @@
 # gems
 require 'sinatra/base'
+require 'pry'
 require 'date'
 require 'haml'
 
@@ -11,7 +12,7 @@ module Resa
 
     helpers do
       def find_room(id)
-        @room = Room.where(:name => id).without(:_id).first
+        @room = Room.where(:name => id).first
     rescue Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId
         halt 404, '404 - Page not found'
       end
@@ -46,7 +47,7 @@ module Resa
       reservations.to_json
     end
 
-    # Return reservations for a day
+    # Return reservations for a day.
     get '/rooms/:id/reservations/:year/:month/:day' do
       find_room(params[:id])
       reservations = @room.reservations_for_a_day("#{params[:year]}-#{params[:month]}-#{params[:day]}")
@@ -54,30 +55,33 @@ module Resa
       reservations.to_json
     end
 
-    # create new event
-    post '/reservations' do
-      data = JSON.parse(request.body.string)
+    # Add a new reservation for a room.
+    post '/rooms/:id/reservations' do
+      request.body.rewind
+      data = JSON.parse(request.body.read)
 
-      if data.nil? then
+      if data.nil?
         status 404
       else
-        # check if room exist
-        find_room(data[:room])
+        find_room(params[:id])
+        halt 404, '404 - Room does not exist' unless @room
 
-        # check if date is in a good format
         begin
-          Time.parse("#{data[:dtstart]}") && Time.parse("#{data[:dtend]}")
+          dtstart = Time.parse(data['dtstart'])
+          dtend = Time.parse(data['dtend'])
+          raise unless dtstart < dtend
+
+          raise unless @room.available?(dtstart, dtend)
         rescue
           halt 404, '404 - Date error'
         end
 
-        # check if the room is available for this date
-        @room.check_availability(data[:dtstart], data[:dtend])
+        @room.events.create!(data)
 
-        # create event
+        # export ical?
+        #Calendar.export
 
-        # export ical
-        # Calendar.export
+        status 201
       end
     end
 

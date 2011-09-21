@@ -11,7 +11,9 @@ describe Resa do
   end
 
   before do
+    Mongoid.purge!
     Resa::Calendar.import(:test)
+    Resa::Room.create(name: 'emptyroom')
 
     # Fake dates.
     dtstart = Time.parse('10:00')
@@ -26,10 +28,10 @@ describe Resa do
 
     # Minimal field set to describe a new reservation.
     @reservation = {
-      'room'    => 'bas',
-      'name'    => 'réunion super importante',
-      'dtstart' => dtstart,
-      'dtend'   => dtend
+      'title'     => 'réunion super importante',
+      'dtstart'   => dtstart,
+      'dtend'     => dtend,
+      'organizer' => 'tester'
     }
   end
 
@@ -76,6 +78,15 @@ describe Resa do
     last_response.status.must_equal 200
     res = JSON.parse(last_response.body)
     res.must_be_empty
+  end
+
+  it "should allow to book a room" do
+    post 'rooms/emptyroom/reservations', @reservation.to_json
+    last_response.status.must_equal 201
+
+    get 'rooms/emptyroom/reservations'
+    res = JSON.parse(last_response.body)
+    res.first['name'].must_equal @reservation['name']
   end
 
   # tests.ics
