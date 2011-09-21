@@ -14,4 +14,18 @@ describe Resa do
     get '/rooms'
     last_response.status.must_equal 200
   end
+
+  # tests.ics
+  # event 1:
+  #   room:   bas
+  #   start:  2011-09-20 12:00
+  #   end:    2011-09-23 13:00
+  # event 2:
+  #   room:   haut
+  #   start:  2011-09-21 14:30
+  #   end:    2011-09-21 15:30
+  # event 3:
+  #   room:   cuisine
+  #   start:  2011-09-24
+  #   end:    2011-09-24
 end
