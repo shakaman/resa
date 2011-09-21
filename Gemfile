@@ -2,6 +2,7 @@ source :rubygems
 
 # Framework
 gem 'sinatra'
+gem 'pry'
 
 # BD
 gem 'mongoid'
