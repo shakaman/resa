@@ -5,3 +5,4 @@ config/development.yml
 TODO.md
 public/export.ics
 .bundle
+vendor

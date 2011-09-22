@@ -1,34 +1,46 @@
-RESA
-====
+# RESA
 
-Requirements
-------------
+**Check and make reservations for our meeting rooms.**
 
-ruby 1.9
+## Requirements
+
+* Ruby 1.9
+
+## Install
+
+``` bash
+bundle install # or bundle pack
+```
+
+Edit various config files (be smart), then:
+
+``` bash
 mkdir tmp
 Setup with `gem install bundler && bundle install`.
 Start with `bundle exec thin start -C config/development.yml`.
 Check http://localhost:3000/ with your $BROWSER of choice.
+cp config/config_example.yml config/config.yml
 
+*TODO: clean the conf and paths.*
 
-Install
--------
+## Use
 
-`cp config/config_example.yml config/config.yml`
+Start with:
 
-Load environment in console
-`ruby bin/console`
+``` bash
+bundle exec thin start -C config/development.yml
+```
 
-Tests
------
+Check http://localhost:3000/ in your `$BROWSER` of choice.
 
-`bundle exec ruby test/resa_test.rb`
+Load the development environment in a IRB console:
 
-TODO
-====
-`http://localhost:3000/` 																					: return rooms available now
-`http://localhost:3000/rooms` 																		: return list of rooms
-`http://localhost:3000/rooms/:id` 																: return room's availability for the current day
-`http://localhost:3000/rooms/:id/reservations` 										: return room's availability for the day
-`http://localhost:3000/rooms/:id/reservations/:year/:month/:day`	: return room's availability for a day
+``` ruby
+ruby bin/console
+```
 
+## Tests
+
+``` bash
+bundle exec ruby test/resa_test.rb
+```
