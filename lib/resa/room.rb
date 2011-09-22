@@ -33,6 +33,21 @@ module Resa
       self.events.delete_all
     end
 
+    # Returns all events for a month
+    def reservations_for_a_month(year=nil, month=nil)
+      date = Time.now
+      
+      year = date.year if year.nil?
+      month = date.month if month.nil?
+      
+      reservations = Array.new
+      reservations.concat self.events.where(:dtstart.gte => Date.new(year.to_i, month.to_i, 1), :dtstart.lte => Date.new(year.to_i, month.to_i, -1))
+
+      reservations.sort_by {|a| a.dtstart}
+      reservations.uniq
+    end
+
+
     # Returns all events of the day
     def reservations_for_a_day(date=nil)
       if date.nil?
@@ -40,7 +55,6 @@ module Resa
         date = date.strftime("%Y-%m-%d")
       end
 
-      # Je pense que ca serait plus simple trier dans un tableau
       reservations = Array.new
 
       # 00h00<-->start<-->end<-->23h59

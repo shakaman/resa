@@ -47,6 +47,15 @@ module Resa
       reservations.to_json
     end
 
+    # Return reservations for a month.
+    get '/rooms/:id/reservations/:year/:month' do
+      find_room(params[:id])
+      reservations = @room.reservations_for_a_month(params[:year], params[:month])
+
+      reservations.to_json
+    end
+
+
     # Return reservations for a day.
     get '/rooms/:id/reservations/:year/:month/:day' do
       find_room(params[:id])

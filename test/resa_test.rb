@@ -67,6 +67,20 @@ describe Resa do
     #res = JSON.parse(last_response.body)
   #end
 
+  it "should list reservations for a specific month" do
+    get 'rooms/bas/reservations/2011/09'
+    last_response.status.must_equal 200
+    res = JSON.parse(last_response.body)
+    res.size.must_equal 1
+    res.first['title'].must_equal 'event 1'
+
+    get 'rooms/bas/reservations/2011/08'
+    last_response.status.must_equal 200
+    res = JSON.parse(last_response.body)
+    res.must_be_empty
+  end
+
+
   it "should list reservations for a specific date" do
     get 'rooms/bas/reservations/2011/09/20'
     last_response.status.must_equal 200
