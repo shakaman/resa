@@ -2,7 +2,6 @@ source :rubygems
 
 # Framework
 gem 'sinatra'
-gem 'pry'
 
 # BD
 gem 'mongoid'
@@ -21,6 +20,8 @@ gem 'haml'
 group :development do
   gem 'capistrano'
   gem 'shotgun'
+  # An IRB alternative and runtime developer console
+  gem 'pry'
 end
 
 group :test do
