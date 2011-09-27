@@ -1,10 +1,43 @@
 $(document).ready(function() {
     $(function(){
-    var Event = Backbone.Model.extend();
+    var Rooms = Backbone.Collection.extend({
+        model: Room,
+        url: 'rooms',
+        parse: function(response) {
+            _.each(response, function(room) {
+                room.id = room._id;
+            })
+            return response;
+        }
+    });
+
+    var Room = Backbone.Model.extend({
+        defaults: {
+            name: null
+        }
+    });
+
+    var Event = Backbone.Model.extend({
+        defaults: {
+            dtstart: null,
+            start: null,
+            dtend: null,
+            end: null,
+            title: null
+        }
+    });
 
     var Events = Backbone.Collection.extend({
         model: Event,
-        url: 'rooms/cuisine'
+        url: '/events',
+        parse: function(response) {
+            _.each(response, function(event) {
+                event.id = event._id;
+                event.start = event.dtstart;
+                event.end = event.dtend;
+            })
+            return response;
+        }
     });
 
     var EventsView = Backbone.View.extend({
@@ -89,10 +122,13 @@ $(document).ready(function() {
         },
         open: function() {
             this.$('#title').val(this.model.get('title'));
-            this.$('#color').val(this.model.get('color'));
+            var room = new RoomsSelectView({el: this.$('#rooms')});
+            room.render({selected: this.model.get('room')});
         },
         save: function() {
-            this.model.set({'title': this.$('#title').val(), 'color': this.$('#color').val()});
+            this.model.set({
+                'title': this.$('#title').val(),
+                'room': this.$('#room :selected').val()});
 
             if (this.model.isNew()) {
                 this.collection.create(this.model, {success: this.close});
@@ -107,9 +143,22 @@ $(document).ready(function() {
             this.model.destroy({success: this.close});
         }
     });
+    
+    var RoomsSelectView = Backbone.View.extend({
+        render: function(options) {
+            var select = $('<select name="rooms"/>');
+            rooms.each(function(room) {
+                var selected = options.selected == room.id;
+                select.append('<option value="'+room.id +'"'+ (options.selected  ? ' selected' : '') +'>'+room.get('name')+'</option>');
+            });
+            this.el.html(select);
+        }
+    });
 
     var events = new Events();
+    var rooms = new Rooms();
     new EventsView({el: $("#main"), collection: events}).render();
     events.fetch();
+    rooms.fetch();
 });
 });
