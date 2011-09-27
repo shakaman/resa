@@ -10,10 +10,14 @@ module Resa
     # @return list
     def self.list
       rooms = Room.all
-      list = Hash.new
+      list = Array.new
 
       rooms.each do |room|
-        list[room.name] = Resa.config[:rooms][room.name.to_sym] if Resa.config[:rooms].keys.include?(room.name.to_sym)
+        room_hash = Hash.new
+        room_hash['_id'] = room.name
+        room_hash['name'] = Resa.config[:rooms][room.name.to_sym] if Resa.config[:rooms].keys.include?(room.name.to_sym)
+
+        list << room_hash
       end
 
       list
@@ -36,10 +40,10 @@ module Resa
     # Returns all events for a month
     def reservations_for_a_month(year=nil, month=nil)
       date = Time.now
-      
+
       year = date.year if year.nil?
       month = date.month if month.nil?
-      
+
       reservations = Array.new
       reservations.concat self.events.where(:dtstart.gte => Date.new(year.to_i, month.to_i, 1), :dtstart.lte => Date.new(year.to_i, month.to_i, -1))
 
