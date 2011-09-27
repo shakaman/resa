@@ -15,7 +15,11 @@ module Resa
       rooms.each do |room|
         room_hash = Hash.new
         room_hash['_id'] = room.name
-        room_hash['name'] = Resa.config[:rooms][room.name.to_sym] if Resa.config[:rooms].keys.include?(room.name.to_sym)
+
+        if Resa.config[:rooms].keys.include?(room.name.to_sym)
+          room_hash['name'] = Resa.config[:rooms][room.name.to_sym]['name']
+          room_hash['color'] = Resa.config[:rooms][room.name.to_sym]['color']
+        end
 
         list << room_hash
       end
