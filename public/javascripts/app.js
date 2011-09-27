@@ -123,6 +123,8 @@ $(document).ready(function() {
         },
         open: function() {
             this.$('#title').val(this.model.get('title'));
+            this.$('#begin').val(this.model.get('dtstart'));
+            this.$('#end').val(this.model.get('dtend'));
             var room = new RoomsSelectView({el: this.$('#rooms')});
             room.render({selected: this.model.get('location')});
         },
