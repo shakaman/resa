@@ -23,7 +23,8 @@ $(document).ready(function() {
             start: null,
             dtend: null,
             end: null,
-            title: null
+            title: null,
+            location: null
         }
     });
 
@@ -123,7 +124,7 @@ $(document).ready(function() {
         open: function() {
             this.$('#title').val(this.model.get('title'));
             var room = new RoomsSelectView({el: this.$('#rooms')});
-            room.render({selected: this.model.get('room')});
+            room.render({selected: this.model.get('location')});
         },
         save: function() {
             this.model.set({
@@ -149,7 +150,8 @@ $(document).ready(function() {
             var select = $('<select name="rooms"/>');
             rooms.each(function(room) {
                 var selected = options.selected == room.id;
-                select.append('<option value="'+room.id +'"'+ (options.selected  ? ' selected' : '') +'>'+room.get('name')+'</option>');
+                console.log(options.selected, room.id, selected)
+                select.append('<option value="'+room.id +'"'+ (selected  ? ' selected' : '') +'>'+room.get('name')+'</option>');
             });
             this.el.html(select);
         }
