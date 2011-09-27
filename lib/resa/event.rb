@@ -4,8 +4,8 @@ module Resa
     field :title,       type: String
     field :organizer,   type: String
     field :location,    type: String
-    field :dtstart,     type: DateTime
-    field :dtend,       type: DateTime
+    field :dtstart,     type: Time
+    field :dtend,       type: Time
 
     embedded_in :room, :class_name => "Resa::Room"
 
