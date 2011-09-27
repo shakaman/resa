@@ -94,6 +94,11 @@ module Resa
       end
     end
 
+    # Return all events
+    get '/events' do
+      Event.list.to_json
+    end
+
     # 404
     not_found do
       '404'

@@ -24,6 +24,7 @@ module Resa
         room.events.create(
           title:      e.summary,
           organizer:  e.organizer,
+          location:   e.location,
           dtstart:    e.dtstart,
           dtend:      e.dtend
         )
