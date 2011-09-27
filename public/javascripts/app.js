@@ -36,7 +36,8 @@ $(document).ready(function() {
                 event.id = event._id;
                 event.start = event.dtstart;
                 event.end = event.dtend;
-            })
+                event.color = rooms.get(event.location).get('color');
+            });
             return response;
         }
     });
@@ -88,7 +89,6 @@ $(document).ready(function() {
             // Look up the underlying event in the calendar and update its details from the model
             var fcEvent = this.el.fullCalendar('clientEvents', event.get('id'))[0];
             fcEvent.title = event.get('title');
-            fcEvent.color = event.get('color');
             this.el.fullCalendar('updateEvent', fcEvent);
         },
         eventDropOrResize: function(fcEvent) {
@@ -150,7 +150,6 @@ $(document).ready(function() {
             var select = $('<select name="rooms"/>');
             rooms.each(function(room) {
                 var selected = options.selected == room.id;
-                console.log(options.selected, room.id, selected)
                 select.append('<option value="'+room.id +'"'+ (selected  ? ' selected' : '') +'>'+room.get('name')+'</option>');
             });
             this.el.html(select);
@@ -160,7 +159,8 @@ $(document).ready(function() {
     var events = new Events();
     var rooms = new Rooms();
     new EventsView({el: $("#main"), collection: events}).render();
-    events.fetch();
-    rooms.fetch();
+    rooms.fetch({success: function() { // need rooms config before displaying.
+        events.fetch();
+    }});
 });
 });
