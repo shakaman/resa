@@ -39,6 +39,12 @@ module Resa
       @room.to_json
     end
 
+    # Return room's availability for the current day
+    get '/rooms/:id/events' do
+      find_room(params[:id])
+      @room.events.to_json
+    end
+
     # Return reservations of the day
     get '/rooms/:id/reservations' do
       find_room(params[:id])
