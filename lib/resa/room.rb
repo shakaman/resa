@@ -9,10 +9,7 @@ module Resa
     # List of rooms
     # @return list
     def self.list
-      rooms = Room.all
-      list = Array.new
-
-      rooms.each do |room|
+      Room.all.inject([]) do |list, room|
         room_hash = Hash.new
         room_hash['_id'] = room.name
 
@@ -23,8 +20,6 @@ module Resa
 
         list << room_hash
       end
-
-      list
     end
 
     # Find or create a room

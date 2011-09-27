@@ -19,13 +19,6 @@ describe Resa do
     dtstart = Time.parse('10:00')
     dtend = Time.parse('19:00')
 
-    # Available rooms as seen in config.yml.
-    @rooms = {
-      "bas"     => "Salle du bas",
-      "haut"    => "Salle du haut",
-      "cuisine" => "Cuisine"
-    }
-
     # Minimal field set to describe a new reservation.
     @reservation = {
       'title'     => 'réunion super importante',
@@ -43,7 +36,7 @@ describe Resa do
   it "list the rooms" do
     get '/rooms'
     last_response.status.must_equal 200
-    JSON.parse(last_response.body).must_equal @rooms
+    JSON.parse(last_response.body).must_equal Resa::Room.list
   end
 
   it "should list reservations for a specific room" do
