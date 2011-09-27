@@ -1,8 +1,13 @@
 :rooms:
-  :cuisine: 'Cuisine'
-  :bas: 'Salle du bas'
-  :haut: 'Salle du haut'
-  :af83: 'Salle de test'
+  :cuisine: 
+    :name: 'Cuisine'
+    :color: '#34129F'
+  :bas: 
+    :name: 'Salle du bas'
+    :color: '#FFD300'
+  :haut: 
+    :name: 'Salle du haut'
+    :color: '#FE0008'
 :calendar:
   :server: '/home/shakaman/www/resa/public/'
   :reservations: 'reservation.ics'
