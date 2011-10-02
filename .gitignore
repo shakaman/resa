@@ -6,3 +6,4 @@ TODO.md
 public/export.ics
 .bundle
 vendor
+.rvmrc

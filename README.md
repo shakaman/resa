@@ -17,9 +17,10 @@ Edit various config files (be smart), then:
 ``` bash
 mkdir tmp
 Setup with `gem install bundler && bundle install`.
+cp config/config_example.yml config/config.yml
+cp config/development_example.yml config/development.yml
 Start with `bundle exec thin start -C config/development.yml`.
 Check http://localhost:3000/ with your $BROWSER of choice.
-cp config/config_example.yml config/config.yml
 
 *TODO: clean the conf and paths.*
 
