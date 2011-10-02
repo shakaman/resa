@@ -29,6 +29,7 @@ Check http://localhost:3000/ with your $BROWSER of choice.
 Start with:
 
 ``` bash
+export RUBYLIB=./lib/
 bundle exec thin start -C config/development.yml
 ```
 
@@ -43,5 +44,6 @@ ruby bin/console
 ## Tests
 
 ``` bash
+export RUBYLIB=./lib/
 bundle exec ruby test/resa_test.rb
 ```
