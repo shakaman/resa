@@ -9,22 +9,19 @@
 ## Install
 
 ``` bash
-bundle install # or bundle pack
-```
-
-Edit various config files (be smart), then:
-
-``` bash
+git clone https://github.com/shakaman/resa.git
+cd resa
 mkdir tmp
-Setup with `gem install bundler && bundle install`.
+gem install bundler && bundle install
 cp config/config_example.yml config/config.yml
 cp config/development_example.yml config/development.yml
-Start with `bundle exec thin start -C config/development.yml`.
-Check http://localhost:3000/ with your $BROWSER of choice.
+```
+
+Edit various config files (be smart) `config/config.yml` and `config/development.yml`.
 
 *TODO: clean the conf and paths.*
 
-## Use
+## Usage
 
 Start with:
 
