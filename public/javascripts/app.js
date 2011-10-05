@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $(function(){
+    Backbone.Model.prototype.idAttribute = "_id";
     var Rooms = Backbone.Collection.extend({
         model: Room,
         url: 'rooms',
@@ -8,7 +9,7 @@ $(document).ready(function() {
                 room.id = room._id;
             })
             return response;
-        }
+        },
     });
 
     var Room = Backbone.Model.extend({
@@ -25,7 +26,35 @@ $(document).ready(function() {
             end: null,
             title: null,
             location: null
+        },
+        initialize: function() {
+            _.bindAll(this, 'setColor', 'setDtstart', 'setDtend');
+            if(this.get('location')) this.setColor();
+            if(this.get('start'))this.setDtstart();
+            if(this.get('end'))this.setDtend();
+            this.bind('change:location', this.setColor);
+            this.bind('change:start', this.setDtstart);
+            this.bind('change:end', this.setDtend);
+        },
+
+        // keep sync between location and it's associate color'
+        setColor: function() {
+            this.set({color: rooms.get(this.get('location')).get('color')});
+        },
+        // keep sync between full calendar date and server side
+        setDtstart: function() {
+            this.set({dtstart: this.get('start')});
+        },
+        // keep sync between full calendar date and server side
+        setDtend: function() {
+            this.set({dtend: this.get('end')});
+        },
+        toCallendar: function() {
+            var format = this.toJSON();
+            format.id = this.id;
+            return format;
         }
+
     });
 
     var Events = Backbone.Collection.extend({
@@ -33,12 +62,15 @@ $(document).ready(function() {
         url: '/events',
         parse: function(response) {
             _.each(response, function(event) {
-                event.id = event._id;
                 event.start = event.dtstart;
                 event.end = event.dtend;
                 event.color = rooms.get(event.location).get('color');
             });
             return response;
+        },
+        toCallendar: function() {
+            var t = this.map(function(event) {return event.toCallendar()});
+            return t;
         }
     });
 
@@ -71,14 +103,17 @@ $(document).ready(function() {
             });
         },
         addAll: function() {
-            this.el.fullCalendar('addEventSource', this.collection.toJSON());
+            this.el.fullCalendar('addEventSource', this.collection.toCallendar());
         },
         addOne: function(event) {
-            this.el.fullCalendar('renderEvent', event.toJSON());
+            this.el.fullCalendar('renderEvent', event.toCallendar());
         },
         select: function(startDate, endDate) {
             this.eventView.collection = this.collection;
-            this.eventView.model = new Event({start: startDate, end: endDate});
+            this.eventView.model = new Event({
+                start: $.fullCalendar.formatDate(startDate, 'u'),
+                end: $.fullCalendar.formatDate(endDate, 'u')
+            });
             this.eventView.render();
         },
         eventClick: function(fcEvent) {
@@ -87,7 +122,7 @@ $(document).ready(function() {
         },
         change: function(event) {
             // Look up the underlying event in the calendar and update its details from the model
-            var fcEvent = this.el.fullCalendar('clientEvents', event.get('id'))[0];
+            var fcEvent = this.el.fullCalendar('clientEvents', event.id)[0];
             fcEvent.title = event.get('title');
             this.el.fullCalendar('updateEvent', fcEvent);
         },
@@ -123,15 +158,17 @@ $(document).ready(function() {
         },
         open: function() {
             this.$('#title').val(this.model.get('title'));
-            this.$('#begin').val(this.model.get('dtstart'));
-            this.$('#end').val(this.model.get('dtend'));
+            this.$('#begin').val(this.model.get('start'));
+            this.$('#end').val(this.model.get('end'));
             var room = new RoomsSelectView({el: this.$('#rooms')});
             room.render({selected: this.model.get('location')});
         },
         save: function() {
             this.model.set({
                 'title': this.$('#title').val(),
-                'room': this.$('#room :selected').val()});
+                'start': this.$('#begin').val(),
+                'end': this.$('#end').val(),
+                'location': this.$('select[name="rooms"] :selected').val()});
 
             if (this.model.isNew()) {
                 this.collection.create(this.model, {success: this.close});

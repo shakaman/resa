@@ -105,6 +105,16 @@ module Resa
       Event.list.to_json
     end
 
+    # Return all events
+    post '/events' do
+      request.body.rewind
+      data = JSON.parse(request.body.read)
+      puts data
+      find_room(data['location'])
+      @room.events.create!(data)
+      status 201
+    end
+
     # 404
     not_found do
       '404'
