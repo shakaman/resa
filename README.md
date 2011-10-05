@@ -44,6 +44,5 @@ ruby bin/console
 ## Tests
 
 ``` bash
-export RUBYLIB=./lib/
-bundle exec ruby test/resa_test.rb
+rake test
 ```

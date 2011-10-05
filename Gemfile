@@ -22,6 +22,7 @@ group :development do
   gem 'shotgun'
   # An IRB alternative and runtime developer console
   gem 'pry'
+  gem 'rake'
 end
 
 group :test do

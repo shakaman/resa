@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 
-require File.expand_path(File.join(File.dirname(__FILE__), 'test_helper'))
+require_relative 'test_helper'
 
 describe Resa do
   include Rack::Test::Methods
