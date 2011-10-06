@@ -109,10 +109,8 @@ module Resa
     post '/events' do
       request.body.rewind
       data = JSON.parse(request.body.read)
-      puts data
       find_room(data['location'])
-      @room.events.create!(data)
-      status 201
+      @room.events.create!(data).to_json
     end
 
     # 404
