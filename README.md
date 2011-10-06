@@ -43,3 +43,8 @@ ruby bin/console
 ``` bash
 rake test
 ```
+
+## License
+
+GNU AFFERO GENERAL PUBLIC LICENSE
+see license.txt
