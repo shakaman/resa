@@ -5,7 +5,7 @@ require 'pathname'
 
 module Resa
   autoload :App,        'resa/app'
-  autoload :Room,       'resa/room'
+  autoload :Location,   'resa/location'
   autoload :Calendar,   'resa/calendar'
   autoload :Event,      'resa/event'
 

@@ -25,14 +25,14 @@ $(document).ready(function() {
             dtend: null,
             end: null,
             title: null,
-            location: null
+            location_id: null
         },
         initialize: function() {
             _.bindAll(this, 'setColor', 'setDtstart', 'setDtend');
             if(this.get('location')) this.setColor();
             if(this.get('start'))this.setDtstart();
             if(this.get('end'))this.setDtend();
-            this.bind('change:location', this.setColor);
+//            this.bind('change:location', this.setColor);
             this.bind('change:start', this.setDtstart);
             this.bind('change:end', this.setDtend);
         },
@@ -64,7 +64,7 @@ $(document).ready(function() {
             _.each(response, function(event) {
                 event.start = event.dtstart;
                 event.end = event.dtend;
-                event.color = rooms.get(event.location).get('color');
+//                event.color = rooms.get(event.location).get('color');
             });
             return response;
         },
@@ -168,7 +168,7 @@ $(document).ready(function() {
                 'title': this.$('#title').val(),
                 'start': this.$('#begin').val(),
                 'end': this.$('#end').val(),
-                'location': this.$('select[name="rooms"] :selected').val()});
+                'location_id': this.$('select[name="rooms"] :selected').val()});
 
             if (this.model.isNew()) {
                 this.collection.create(this.model, {success: this.close});

@@ -10,14 +10,6 @@ module Resa
     set :public,  File.dirname(__FILE__) + '/../../public'
     set :views, File.dirname(__FILE__) + '/../../views'
 
-    helpers do
-      def find_room(id)
-        @room = Room.where(:name => id).first
-    rescue Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId
-        halt 404, '404 - Page not found'
-      end
-    end
-
     before do
       content_type 'application/json', :charset => 'utf-8'
     end
@@ -30,87 +22,36 @@ module Resa
 
     # Return list of rooms
     get '/rooms' do
-      Room.list.to_json
-    end
-
-    # Return room's availability for the current day
-    get '/rooms/:id' do
-      find_room(params[:id])
-      @room.to_json
-    end
-
-    # Return room's availability for the current day
-    get '/rooms/:id/events' do
-      find_room(params[:id])
-      @room.events.to_json
-    end
-
-    # Return reservations of the day
-    get '/rooms/:id/reservations' do
-      find_room(params[:id])
-      reservations = @room.reservations_for_a_day
-
-      reservations.to_json
-    end
-
-    # Return reservations for a month.
-    get '/rooms/:id/reservations/:year/:month' do
-      find_room(params[:id])
-      reservations = @room.reservations_for_a_month(params[:year], params[:month])
-
-      reservations.to_json
-    end
-
-
-    # Return reservations for a day.
-    get '/rooms/:id/reservations/:year/:month/:day' do
-      find_room(params[:id])
-      reservations = @room.reservations_for_a_day("#{params[:year]}-#{params[:month]}-#{params[:day]}")
-
-      reservations.to_json
-    end
-
-    # Add a new reservation for a room.
-    post '/rooms/:id/reservations' do
-      request.body.rewind
-      data = JSON.parse(request.body.read)
-
-      if data.nil?
-        status 404
-      else
-        find_room(params[:id])
-        halt 404, '404 - Room does not exist' unless @room
-
-        begin
-          dtstart = Time.parse(data['dtstart'])
-          dtend = Time.parse(data['dtend'])
-          raise unless dtstart < dtend
-
-          raise unless @room.available?(dtstart, dtend)
-        rescue
-          halt 404, '404 - Date error'
-        end
-
-        @room.events.create!(data)
-
-        # export ical?
-        #Calendar.export
-
-        status 201
-      end
+      Location.all.to_json
     end
 
     # Return all events
     get '/events' do
-      Event.list.to_json
+      Event.all.to_json
     end
 
-    # Return all events
+    # new event
     post '/events' do
       request.body.rewind
       data = JSON.parse(request.body.read)
-      find_room(data['location'])
-      @room.events.create!(data).to_json
+      puts data
+      event = Event.create!(data)
+      event.to_json
+    end
+
+    # edit events
+    put '/events/:id' do
+      request.body.rewind
+      data = JSON.parse(request.body.read)
+      event = Event.find(params[:id])
+      event.update_attributes(data)
+      event.to_json
+    end
+
+    # remove an events
+    delete '/events/:id' do
+      request.body.rewind
+      Events.get(data['_id']).remove
     end
 
     # 404

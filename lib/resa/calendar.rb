@@ -13,21 +13,23 @@ module Resa
       cal_file = open(server + ics).read
 
       calendar = Icalendar.parse(cal_file)
-      cal = calendar.first
-      events = cal.events
 
-      events.each do |e|
-        room = Room.find_or_create(e.location).first
-
-        room.flush_events
-
-        room.events.create(
-          title:      e.summary,
-          organizer:  e.organizer,
-          location:   e.location,
-          dtstart:    e.dtstart,
-          dtend:      e.dtend
+      # building location index by name.
+      locations = Location.all
+      location_index = locations.inject({}) do |result, location|
+        result[location.name] = location
+        result
+      end
+      calendar.first.events.each do |event|
+        puts location_index[event.location]
+        evt = Event.create(
+          title:      event.summary,
+          organizer:  event.organizer,
+          dtstart:    event.dtstart,
+          dtend:      event.dtend,
+          location_id:   location_index[event.location]._id
         )
+        evt.save
       end
     end
 
@@ -38,14 +40,10 @@ module Resa
 
       cal = Icalendar::Calendar.new
 
-      rooms = Resa::Room.all
-      rooms.each do |room|
-        events = room.events
-
-        events.each do |event|
-          puts event.title
-          cal.add_event(event.to_ics)
-        end
+      events = Event.all
+      events.each do |event|
+        puts event.title
+        cal.add_event(event.to_ics)
       end
 
       cal.publish
