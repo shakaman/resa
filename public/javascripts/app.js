@@ -95,6 +95,7 @@ $(document).ready(function() {
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
+                timeFormat: 'H:mm{ - H:mm}',
                 allDayDefault: false,
                 selectable: true,
                 selectHelper: true,
