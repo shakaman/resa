@@ -10,11 +10,15 @@ $(document).ready(function() {
             })
             return response;
         },
+        colorForEvent: function(event) {
+            return this.get(event.get('location_id')).get('color');
+        }
     });
 
     var Room = Backbone.Model.extend({
         defaults: {
-            name: null
+            name: null,
+            color: null
         }
     });
 
@@ -29,17 +33,17 @@ $(document).ready(function() {
         },
         initialize: function() {
             _.bindAll(this, 'setColor', 'setDtstart', 'setDtend');
-            if(this.get('location')) this.setColor();
-            if(this.get('start'))this.setDtstart();
-            if(this.get('end'))this.setDtend();
-//            this.bind('change:location', this.setColor);
+            if(this.get('location_id')) this.setColor();
+            if(this.get('start')) this.setDtstart();
+            if(this.get('end')) this.setDtend();
+            this.bind('change:location_id', this.setColor);
             this.bind('change:start', this.setDtstart);
             this.bind('change:end', this.setDtend);
         },
 
         // keep sync between location and it's associate color'
         setColor: function() {
-            this.set({color: rooms.get(this.get('location')).get('color')});
+            this.set({color: rooms.colorForEvent(this)});
         },
         // keep sync between full calendar date and server side
         setDtstart: function() {
@@ -64,7 +68,6 @@ $(document).ready(function() {
             _.each(response, function(event) {
                 event.start = event.dtstart;
                 event.end = event.dtend;
-//                event.color = rooms.get(event.location).get('color');
             });
             return response;
         },
@@ -90,8 +93,9 @@ $(document).ready(function() {
                 header: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'month,basicWeek,basicDay'
+                    right: 'month,agendaWeek,agendaDay'
                 },
+                allDayDefault: false,
                 selectable: true,
                 selectHelper: true,
                 editable: true,
@@ -124,6 +128,9 @@ $(document).ready(function() {
             // Look up the underlying event in the calendar and update its details from the model
             var fcEvent = this.el.fullCalendar('clientEvents', event.id)[0];
             fcEvent.title = event.get('title');
+            fcEvent.color = event.get('color');
+            fcEvent.start = event.get('start');
+            fcEvent.end = event.get('end');
             this.el.fullCalendar('updateEvent', fcEvent);
         },
         eventDropOrResize: function(fcEvent) {
