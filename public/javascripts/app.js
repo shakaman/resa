@@ -95,8 +95,38 @@ $(document).ready(function() {
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay'
                 },
+                buttonText: {
+                    prev:     '&nbsp;&#9668;&nbsp;',  // left triangle
+                    next:     '&nbsp;&#9658;&nbsp;',  // right triangle
+                    prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
+                    nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
+                    today:    'aujourd\'hui',
+                    month:    'mois',
+                    week:     'semaine',
+                    day:      'jour'
+                },
+                titleFormat: {
+                    month: 'MMMM yyyy',
+                    week: "d MMMM[ yyyy]{ - d [ MMMM] yyyy}",
+                    agendaDay: 'dddd d MMM yyyy'
+                },
+                columnFormat: {
+                    month: 'ddd',
+                    week: 'ddd d/M',
+                    day: 'dddd d/M'
+                },
+                monthNames: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet',
+                 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui',
+                 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+                firstDay: 1,
                 timeFormat: 'H:mm{ - H:mm}',
+                axisFormat: 'H:mm',
+                minTime: 8,
                 allDayDefault: false,
+                allDaySlot: false,
                 selectable: true,
                 selectHelper: true,
                 editable: true,
