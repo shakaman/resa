@@ -161,7 +161,7 @@ $(document).ready(function() {
             this.$('#begin').val(this.model.get('start'));
             this.$('#end').val(this.model.get('end'));
             var room = new RoomsSelectView({el: this.$('#rooms')});
-            room.render({selected: this.model.get('location')});
+            room.render({selected: this.model.get('location_id')});
         },
         save: function() {
             this.model.set({
