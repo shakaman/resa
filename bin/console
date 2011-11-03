@@ -10,4 +10,7 @@ require 'irb'
 require File.expand_path '../../lib/resa', __FILE__
 
 Resa.initialize
+# autoload class
+Resa::App
+
 IRB.start
