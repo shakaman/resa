@@ -21,7 +21,6 @@ module Resa
         result
       end
       calendar.first.events.each do |event|
-        puts location_index[event.location]
         evt = Event.create(
           title:      event.summary,
           organizer:  event.organizer,
@@ -42,7 +41,6 @@ module Resa
 
       events = Event.all
       events.each do |event|
-        puts event.title
         cal.add_event(event.to_ics)
       end
 
