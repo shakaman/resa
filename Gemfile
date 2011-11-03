@@ -16,6 +16,9 @@ gem 'thin'
 # templating using haml
 gem 'haml'
 
+# authentication
+gem 'sinatra-authentication'
+
 # development
 group :development do
   gem 'capistrano'
