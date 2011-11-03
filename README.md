@@ -19,9 +19,13 @@ cp config/development_example.yml config/development.yml
 
 Edit various config files (be smart) `config/config.yml` and `config/development.yml`.
 
-notice: you should add a user using console and switch it''s permission_level to -1. You now have an admin account.
+notice: you should add a user using console and switch it''s permission_level to -1.
+You now have an admin account.
 
-*TODO: clean the conf and paths.*
+	bundle exec ruby bin/console
+	User.set(:email => "admin@admin.com", :password => "admin",
+	  :password_confirmation => 'admin', :permission_level => -1)
+
 
 ## Usage
 
