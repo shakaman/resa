@@ -17,7 +17,8 @@ gem 'thin'
 gem 'haml'
 
 # authentication
-gem 'sinatra-authentication'
+gem 'sinatra-authentication', :git => 'git://github.com/spk/sinatra-authentication.git',
+  :branch => 'change_require_pathname'
 
 # development
 group :development do
