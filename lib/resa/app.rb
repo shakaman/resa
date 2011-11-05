@@ -35,7 +35,7 @@ module Resa
     get '/events' do
       login_required
       content_type 'application/json', :charset => 'utf-8'
-      Event.all.to_json
+      Event.includes(:organizer).all.to_json(:include => {:organizer => {:only => :email}})
     end
 
     # new event
@@ -44,8 +44,11 @@ module Resa
       content_type 'application/json', :charset => 'utf-8'
       request.body.rewind
       data = JSON.parse(request.body.read)
-      event = Event.create!(data)
-      event.to_json
+      event = Event.new(data)
+      event.organizer = current_user.db_instance
+      event.save
+      
+      event.to_json(:include => {:organizer => {:only => :email}})
     end
 
     # edit events
@@ -55,8 +58,10 @@ module Resa
       request.body.rewind
       data = JSON.parse(request.body.read)
       event = Event.find(params[:id])
+      event.organizer = current_user.db_instance
       event.update_attributes(data)
-      event.to_json
+      
+      event.to_json(:include => {:organizer => {:only => :email}})
     end
 
     # remove an events

@@ -1,6 +1,7 @@
 development:
   host: localhost
   database: resa_dev
+  identity_map_enabled: true
 
 test:
   host: localhost

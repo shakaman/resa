@@ -1,6 +1,7 @@
 module Resa
   class Location
     include Mongoid::Document
+
     field :name, :type => String
     field :color, :type => String
     belongs_to :event, class_name: 'Resa::Event', inverse_of: :location

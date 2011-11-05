@@ -56,6 +56,9 @@ $(document).ready(function() {
         toCallendar: function() {
             var format = this.toJSON();
             format.id = this.id;
+            var organizer = this.get('organizer')
+            format.title = this.get('title') + (organizer ? (' | ' + organizer.email) : '');
+
             return format;
         }
 
@@ -158,7 +161,8 @@ $(document).ready(function() {
         change: function(event) {
             // Look up the underlying event in the calendar and update its details from the model
             var fcEvent = this.el.fullCalendar('clientEvents', event.id)[0];
-            fcEvent.title = event.get('title');
+            var organizer = event.get('organizer')
+            fcEvent.title = event.get('title') + (organizer && organizer.email);
             fcEvent.color = event.get('color');
             fcEvent.start = event.get('start');
             fcEvent.end = event.get('end');

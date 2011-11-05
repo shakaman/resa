@@ -22,12 +22,13 @@ module Resa
       end
       calendar.first.events.each do |event|
         evt = Event.create(
-          title:      event.summary,
-          organizer:  event.organizer,
-          dtstart:    event.dtstart,
-          dtend:      event.dtend,
-          location_id:   location_index[event.location]._id
+          title:        event.summary,
+          dtstart:      event.dtstart,
+          dtend:        event.dtend,
+          location_id:  location_index[event.location]._id
         )
+        organizer = User.findById event.organizer
+        evt.organizer_id = organizer unless organizer.nil?
         evt.save
       end
     end
