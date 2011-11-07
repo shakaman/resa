@@ -162,7 +162,7 @@ $(document).ready(function() {
             // Look up the underlying event in the calendar and update its details from the model
             var fcEvent = this.el.fullCalendar('clientEvents', event.id)[0];
             var organizer = event.get('organizer')
-            fcEvent.title = event.get('title') + (organizer && organizer.email);
+            fcEvent.title = event.get('title') + (organizer ? (' | ' + organizer.email) : '');
             fcEvent.color = event.get('color');
             fcEvent.start = event.get('start');
             fcEvent.end = event.get('end');

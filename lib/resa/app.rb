@@ -68,8 +68,7 @@ module Resa
     delete '/events/:id' do
       login_required
       content_type 'application/json', :charset => 'utf-8'
-      request.body.rewind
-      Events.get(data['_id']).remove
+      Event.find(params[:id]).remove
     end
 
 
