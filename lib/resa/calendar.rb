@@ -27,8 +27,8 @@ module Resa
           dtend:        event.dtend,
           location_id:  location_index[event.location]._id
         )
-        organizer = User.findById event.organizer
-        evt.organizer_id = organizer unless organizer.nil?
+        user = MongoidUser.where(:_id => event.organizer.to_s).one
+        evt.organizer = user
         evt.save
       end
     end

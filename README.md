@@ -26,6 +26,9 @@ You now have an admin account.
 	User.set(:email => "admin@admin.com", :password => "admin",
 	  :password_confirmation => 'admin', :permission_level => -1)
 
+	Create Location set on console:
+	Resa::Location.import
+	Resa::Calendar.import
 
 ## Usage
 

@@ -11,7 +11,7 @@ module Resa
 
     def self.import
       data = YAML.load_file(Resa.config_file)
-      data[:locations].each do |location|
+      data[:locations].each do |key, location|
         create! location
       end
     end
