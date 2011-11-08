@@ -9,7 +9,6 @@ module Resa
 
     use Rack::Session::Cookie, :secret => 'cat on keyborad'
 
-    register Sinatra::SinatraAuthentication
 
     set :static, true
     set :public,  File.dirname(__FILE__) + '/../../public'
@@ -73,10 +72,39 @@ module Resa
       event.remove
     end
 
+    get '/signup' do
+      if current_user && current_user.admin?
+        haml get_view_as_string("signup.haml"), :layout => use_layout?
+      else
+        redirect '/'
+      end
+    end
+
+    post '/signup' do
+      redirect '/' unless current_user && current_user.admin?
+      @user = User.set(params[:user])
+      if @user.valid && @user.id
+        # Do not login user we only want admin create user
+        # session[:user] = @user.id
+        if Rack.const_defined?('Flash')
+          flash[:notice] = "Account created."
+        end
+        redirect '/'
+      else
+        if Rack.const_defined?('Flash')
+          flash[:notice] = "There were some problems creating your account: #{@user.errors}."
+        end
+        redirect '/signup?' + hash_to_query_string(params['user'])
+      end
+    end
+
+    # register after redefinition of signup
+    register Sinatra::SinatraAuthentication
 
     # 404
     not_found do
       '404'
     end
+
   end
 end
