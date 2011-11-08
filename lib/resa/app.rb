@@ -3,7 +3,6 @@ require 'sinatra/base'
 require 'pry'
 require 'date'
 require 'haml'
-require 'sinatra-authentication'
 
 module Resa
   class App < Sinatra::Base
@@ -58,6 +57,7 @@ module Resa
       request.body.rewind
       data = JSON.parse(request.body.read)
       event = Event.find(params[:id])
+      return status(403) unless current_user.can_update? event
       event.organizer = current_user.db_instance
       event.update_attributes(data)
       
@@ -68,7 +68,9 @@ module Resa
     delete '/events/:id' do
       login_required
       content_type 'application/json', :charset => 'utf-8'
-      Event.find(params[:id]).remove
+      event = Event.find(params[:id])
+      return status(403) unless current_user.can_update? event
+      event.remove
     end
 
 

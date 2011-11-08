@@ -31,6 +31,9 @@ $(document).ready(function() {
             title: null,
             location_id: null
         },
+        url: function() {
+            return '/events' + (this.isNew() ? '' : ('/' + this.id));
+        },
         initialize: function() {
             _.bindAll(this, 'setColor', 'setDtstart', 'setDtend');
             if(this.get('location_id')) this.setColor();
@@ -127,7 +130,9 @@ $(document).ready(function() {
                 firstDay: 1,
                 timeFormat: 'H:mm{ - H:mm}',
                 axisFormat: 'H:mm',
-                minTime: 8,
+                firstHour: {
+                    week: 8,
+                    agendaDay: 8},
                 allDayDefault: false,
                 allDaySlot: false,
                 selectable: true,
@@ -170,7 +175,21 @@ $(document).ready(function() {
         },
         eventDropOrResize: function(fcEvent) {
             // Lookup the model that has the ID of the event and update its attributes
-            this.collection.get(fcEvent.id).save({start: fcEvent.start, end: fcEvent.end});
+            var event = this.collection.get(fcEvent.id)
+              , values = {start: fcEvent.start, end: fcEvent.end}
+              , el = this.el;
+            $.when(
+                event.clone().save(values))
+                .done(function() {event.set(values, {silent: true})})
+                .fail(function() {
+                    $.gritter.add({title: Wording.error, text: Wording.update.unauthorized});
+                })
+                .fail(function() {
+                    var fcEvent = el.fullCalendar('clientEvents', event.id)[0];
+                    fcEvent.start = event.get('start');
+                    fcEvent.end = event.get('end');
+                    el.fullCalendar('updateEvent', fcEvent);
+                });
         },
         destroy: function(event) {
             this.el.fullCalendar('removeEvents', event.id);
@@ -206,23 +225,34 @@ $(document).ready(function() {
             room.render({selected: this.model.get('location_id')});
         },
         save: function() {
-            this.model.set({
+            var values = {
                 'title': this.$('#title').val(),
                 'start': this.$('#begin').val(),
                 'end': this.$('#end').val(),
-                'location_id': this.$('select[name="rooms"] :selected').val()});
+                'location_id': this.$('select[name="rooms"] :selected').val()};
 
             if (this.model.isNew()) {
-                this.collection.create(this.model, {success: this.close});
+                this.model.set(values);
+                $.when(
+                    this.collection.create(this.model))
+                    .then(this.close);
             } else {
-                this.model.save({}, {success: this.close});
+                var model = this.model;
+                $.when(
+                    model.clone().save(values))
+                    .done(function() {model.set(values)})
+                    .then(this.close)
+                    .fail(function(){$.gritter.add({title: Wording.error, text: Wording.update.unauthorized})});
             }
         },
         close: function() {
             this.el.dialog('close');
         },
         destroy: function() {
-            this.model.destroy({success: this.close});
+            $.when(
+                this.model.destroy())
+                .then(this.close)
+                .fail(function(){$.gritter.add({title: Wording.error, text: Wording.delete.unauthorized})});
         }
     });
     
@@ -245,3 +275,13 @@ $(document).ready(function() {
     }});
 });
 });
+
+var Wording = {
+    'error': 'Erreur',
+    'update': {
+        unauthorized: 'Vous n\'êtes pas autorisé à modifier cet événement.'
+    },
+    'delete': {
+        unauthorized: 'Vous n\'êtes pas autorisé à supprimer cet événement.'
+    }
+};

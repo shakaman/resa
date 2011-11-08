@@ -1,6 +1,8 @@
 # gems
 require 'mongoid'
 require 'pathname'
+require 'sinatra-authentication'
+require 'user'
 
 
 module Resa
