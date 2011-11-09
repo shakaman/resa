@@ -4,7 +4,7 @@ module Resa
 
     field :name, :type => String
     field :color, :type => String
-    belongs_to :event, class_name: 'Resa::Event', inverse_of: :location
+    has_many :events, class_name: 'Resa::Event', inverse_of: :location
 
     validates_presence_of :name
     validates_uniqueness_of :name

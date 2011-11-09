@@ -6,7 +6,7 @@ module Resa
     field :dtstart,     :type => DateTime
     field :dtend,       :type => DateTime
 
-    has_one :location, class_name: 'Resa::Location', inverse_of: :event
+    belongs_to :location, class_name: 'Resa::Location', inverse_of: :event
     belongs_to :organizer, class_name: 'MongoidUser', inverse_of: :events
     accepts_nested_attributes_for :organizer
 
