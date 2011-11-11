@@ -125,6 +125,7 @@ DEPENDENCIES
   mongoid
   pony
   pry
+  rack-flash
   rack-test (~> 0.6.1)
   rake
   shotgun

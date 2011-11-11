@@ -16,7 +16,9 @@
       %div= render_login_logout
       - if current_user.admin?
         %div
-          %a{:href => "/users"} users
+          %a{:href => "/users"} Users
+          |
+          %a{:href => "/signup"} Add user
 
     =yield
     %footer

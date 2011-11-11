@@ -1,17 +1,32 @@
 # gems
 require 'sinatra/base'
-require 'pry'
+require 'rack-flash'
 require 'date'
 require 'haml'
+require 'pony'
 
 module Resa
   class App < Sinatra::Base
 
     use Rack::Session::Cookie, :secret => 'cat on keyborad'
+    use Rack::Flash
 
     set :static, true
     set :public,  File.dirname(__FILE__) + '/../../public'
     set :views, File.dirname(__FILE__) + '/../../views'
+
+    helpers do
+      def send_registration_mail
+        Pony.mail(:to => params[:user][:email], :from => 'no-reply@resa.af83.com',
+                  :subject => '[RESA] Account created.',
+                  :body => "Hi,
+                  You can now login with email and password: #{params[:user][:password]}
+                  http://resa.af83.com")
+
+      rescue Errno::EPIPE, Errno::ECONNREFUSED
+        STDERR.puts "Mail Account created Fail."
+      end
+    end
 
     # Return rooms available now
     get '/' do
@@ -89,6 +104,7 @@ module Resa
         if Rack.const_defined?('Flash')
           flash[:notice] = "Account created."
         end
+        send_registration_mail
         redirect '/'
       else
         if Rack.const_defined?('Flash')

@@ -16,6 +16,9 @@ gem 'thin'
 # templating using haml
 gem 'haml'
 
+# flash notification
+gem 'rack-flash'
+
 # authentication
 gem 'sinatra-authentication', :git => 'git://github.com/spk/sinatra-authentication.git',
   :branch => 'session_return_to'
