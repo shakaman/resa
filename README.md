@@ -39,6 +39,11 @@ export RUBYLIB=./lib/
 bundle exec thin start -C config/development.yml
 ```
 
+Or with shotgun on development:
+``` bash
+bundle exec shotgun -s thin -p 3000 config/resa.ru
+```
+
 Check http://localhost:3000/ in your `$BROWSER` of choice.
 
 Load the development environment in a IRB console:
