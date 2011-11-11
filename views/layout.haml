@@ -11,7 +11,8 @@
   %body
     %header
       %div Resa
-      %div= current_user.email
+      - if current_user.email
+        %div= current_user.email
       %div= render_login_logout
       - if current_user.admin?
         %div
