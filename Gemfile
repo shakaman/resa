@@ -18,7 +18,7 @@ gem 'haml'
 
 # authentication
 gem 'sinatra-authentication', :git => 'git://github.com/spk/sinatra-authentication.git',
-  :branch => 'change_require_pathname'
+  :branch => 'session_return_to'
 
 # development
 group :development do
