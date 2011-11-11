@@ -9,14 +9,13 @@ module Resa
 
     use Rack::Session::Cookie, :secret => 'cat on keyborad'
 
-
     set :static, true
     set :public,  File.dirname(__FILE__) + '/../../public'
     set :views, File.dirname(__FILE__) + '/../../views'
 
-
     # Return rooms available now
     get '/' do
+      session[:return_to] = '/'
       login_required
       content_type 'text/html', :charset => 'utf-8'
       haml :index, :format => :html5
@@ -24,6 +23,7 @@ module Resa
 
     # Return list of rooms
     get '/rooms' do
+      session[:return_to] = '/'
       login_required
       content_type 'application/json', :charset => 'utf-8'
       Location.all.to_json
@@ -45,7 +45,7 @@ module Resa
       event = Event.new(data)
       event.organizer = current_user.db_instance
       event.save
-      
+
       event.to_json(:include => {:organizer => {:only => :email}})
     end
 
@@ -59,7 +59,7 @@ module Resa
       return status(403) unless current_user.can_update? event
       event.organizer = current_user.db_instance
       event.update_attributes(data)
-      
+
       event.to_json(:include => {:organizer => {:only => :email}})
     end
 
