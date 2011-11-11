@@ -49,8 +49,17 @@ GEM
     highline (1.6.2)
     i18n (0.6.0)
     icalendar (1.1.6)
+    launchy (2.0.5)
+      addressable (~> 2.2.6)
+    letter_opener (0.0.2)
+      launchy
+    mail (2.3.0)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
     method_source (0.6.5)
       ruby_parser (>= 2.0.5)
+    mime-types (1.17.2)
     minitest (2.4.0)
     mongo (1.3.1)
       bson (>= 1.3.1)
@@ -66,6 +75,9 @@ GEM
     net-ssh (2.2.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    polyglot (0.3.2)
+    pony (1.3)
+      mail (> 2.0)
     pry (0.9.6)
       coderay (>= 0.9.8)
       method_source (>= 0.6.5)
@@ -94,6 +106,9 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     tilt (1.3.3)
+    treetop (1.4.10)
+      polyglot
+      polyglot (>= 0.3.1)
     tzinfo (0.3.29)
     yajl-ruby (1.1.0)
 
@@ -105,8 +120,10 @@ DEPENDENCIES
   capistrano
   haml
   icalendar
+  letter_opener
   minitest (~> 2.4.0)
   mongoid
+  pony
   pry
   rack-test (~> 0.6.1)
   rake

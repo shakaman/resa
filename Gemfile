@@ -20,6 +20,9 @@ gem 'haml'
 gem 'sinatra-authentication', :git => 'git://github.com/spk/sinatra-authentication.git',
   :branch => 'session_return_to'
 
+# mail
+gem 'pony'
+
 # development
 group :development do
   gem 'capistrano'
@@ -27,6 +30,7 @@ group :development do
   # An IRB alternative and runtime developer console
   gem 'pry'
   gem 'rake'
+  gem 'letter_opener'
 end
 
 group :test do
