@@ -3,8 +3,8 @@ module Resa
     include Mongoid::Document
     include Mongoid::Timestamps
     field :title,       :type => String
-    field :dtstart,     :type => DateTime
-    field :dtend,       :type => DateTime
+    field :dtstart,     :type => Time
+    field :dtend,       :type => Time
 
     belongs_to :location, class_name: 'Resa::Location', inverse_of: :event
     belongs_to :organizer, class_name: 'MongoidUser', inverse_of: :events
