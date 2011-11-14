@@ -33,7 +33,7 @@ module Resa
       session[:return_to] = '/'
       login_required
       content_type 'text/html', :charset => 'utf-8'
-      haml :index, :format => :html5
+      haml :index, :format => :html5, :layout => :calendar
     end
 
     # Return list of rooms
@@ -89,7 +89,7 @@ module Resa
 
     get '/signup' do
       if current_user && current_user.admin?
-        haml get_view_as_string("signup.haml"), :layout => use_layout?
+        haml get_view_as_string("signup.haml")
       else
         redirect '/'
       end
