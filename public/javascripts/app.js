@@ -219,16 +219,24 @@ $(document).ready(function() {
         },
         open: function() {
             this.$('#title').val(this.model.get('title'));
-            this.$('#begin').val(this.model.get('start'));
-            this.$('#end').val(this.model.get('end'));
+            var begin = $.fullCalendar.parseDate(this.model.get('start'));
+            this.$('#begin').val($.fullCalendar.formatDate(begin, 'HH:mm'));
+            this.$('#begin').timepicker();
+            var end = $.fullCalendar.parseDate(this.model.get('end'));
+            this.$('#end').val($.fullCalendar.formatDate(end, 'HH:mm'));
+            this.$('#end').timepicker();
             var room = new RoomsSelectView({el: this.$('#rooms')});
             room.render({selected: this.model.get('location_id')});
         },
         save: function() {
+            var start = $.fullCalendar.parseDate(this.model.get('start'))
+              , newStart = $.fullCalendar.formatDate(start, "yyyy-MM-dd'T"+this.$('#begin').val()+"':ssTZO")
+              , end = $.fullCalendar.parseDate(this.model.get('start'))
+              , newEnd = $.fullCalendar.formatDate(end, "yyyy-MM-dd'T"+this.$('#end').val()+"':ssTZO");
             var values = {
                 'title': this.$('#title').val(),
-                'start': this.$('#begin').val(),
-                'end': this.$('#end').val(),
+                'start': newStart,
+                'end': newEnd,
                 'location_id': this.$('select[name="rooms"] :selected').val()};
 
             if (this.model.isNew()) {
