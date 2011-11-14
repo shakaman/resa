@@ -1574,7 +1574,14 @@ var dateFormatters = {
 	tt	: function(d)	{ return d.getHours() < 12 ? 'am' : 'pm' },
 	T	: function(d)	{ return d.getHours() < 12 ? 'A' : 'P' },
 	TT	: function(d)	{ return d.getHours() < 12 ? 'AM' : 'PM' },
-	u	: function(d)	{ return formatDate(d, "yyyy-MM-dd'T'HH:mm:ss'Z'") },
+	u	: function(d)	{ return formatDate(d, "yyyy-MM-dd'T'HH:mm:ssTZO") },
+	TZO	: function(d)	{
+		var minOffset = d.getTimezoneOffset();
+		var hours = -1 * Math.floor(minOffset / 60);
+		var minutes = minOffset % 60;
+		var offset = zeroPadSign(hours) + ':' + zeroPad(minutes);
+		return offset;
+	},
 	S	: function(d)	{
 		var date = d.getDate();
 		if (date > 10 && date < 20) {
@@ -1585,6 +1592,10 @@ var dateFormatters = {
 };
 
 
+function zeroPadSign(n) {
+	if (n >= 0) { return '+' + zeroPad(n); }
+	else { return '-' + zeroPad(Math.abs(n)); }
+}
 
 fc.applyAll = applyAll;
 
