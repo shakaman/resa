@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/spk/sinatra-authentication.git
-  revision: e31c37b2fb590ee44732d69130f8356bca035979
-  branch: session_return_to
+  revision: b3c417ba71acedf0021725b7d167d8d0179a1f96
+  branch: resa
   specs:
     sinatra-authentication (0.4.2)
       dm-core
