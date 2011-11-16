@@ -4,7 +4,7 @@
 
 ## Requirements
 
-* Ruby 1.9
+* Ruby 1.8, 1.9
 
 ## Install
 

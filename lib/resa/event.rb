@@ -6,8 +6,8 @@ module Resa
     field :dtstart,     :type => Time
     field :dtend,       :type => Time
 
-    belongs_to :location, class_name: 'Resa::Location', inverse_of: :event
-    belongs_to :organizer, class_name: 'MongoidUser', inverse_of: :events
+    belongs_to :location, :class_name => 'Resa::Location', :inverse_of => :event
+    belongs_to :organizer, :class_name => 'MongoidUser', :inverse_of => :events
     accepts_nested_attributes_for :organizer
 
     # Convert event to iCalendar
