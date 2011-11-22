@@ -19,7 +19,7 @@ module Resa
 
   def self.root
     return @root_path if @root_path
-    @root_path = Pathname.new(File.dirname(__FILE__) + '/..')
+    @root_path = File.expand_path("../..", __FILE__)
   end
 
   # Initialize the application
@@ -33,6 +33,6 @@ module Resa
 
   # Load my conf
   def self.config_file
-    root.join 'config' '/config.yml'
+    File.join root, 'config' '/config.yml'
   end
 end
