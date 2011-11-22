@@ -3,6 +3,11 @@ development:
   database: resa_dev
   identity_map_enabled: true
 
+production:
+  host: localhost
+  database: resa_prod
+  identity_map_enabled: true
+
 test:
   host: localhost
   database: resa_test
