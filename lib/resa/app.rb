@@ -18,11 +18,14 @@ module Resa
 
     helpers do
       def send_registration_mail
-        Pony.mail(:to => params[:user][:email], :from => 'no-reply@resa.af83.com',
+        Pony.mail(:to => params[:user][:email],
+                  :from => "no-reply@#{Resa.config[:app][:host]}",
                   :subject => '[RESA] Account created.',
                   :body => "Hi,
-                  You can now login with email and password: #{params[:user][:password]}
-                  http://resa.af83.com")
+                  You can now login with email and password:
+                  #{params[:user][:email]} / #{params[:user][:password]}
+
+                  http://#{Resa.config[:app][:host]}")
 
       rescue Errno::EPIPE, Errno::ECONNREFUSED
         STDERR.puts "Mail Account created Fail."

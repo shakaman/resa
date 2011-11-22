@@ -1,3 +1,5 @@
+:app:
+  :host: resa.af83.com
 :locations:
   :cuisine:
     :name: 'Cuisine'
