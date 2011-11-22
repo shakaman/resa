@@ -132,3 +132,4 @@ DEPENDENCIES
   sinatra
   sinatra-authentication!
   thin
+  yajl-ruby

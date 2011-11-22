@@ -4,6 +4,7 @@ require 'rack-flash'
 require 'date'
 require 'haml'
 require 'pony'
+require 'yajl'
 
 module Resa
   class App < Sinatra::Base
@@ -56,7 +57,7 @@ module Resa
       login_required
       content_type 'application/json', :charset => 'utf-8'
       request.body.rewind
-      data = JSON.parse(request.body.read)
+      data = Yajl::Parser.parse(request.body.read)
       event = Event.new(data)
       event.organizer = current_user.db_instance
       event.save
@@ -69,7 +70,7 @@ module Resa
       login_required
       content_type 'application/json', :charset => 'utf-8'
       request.body.rewind
-      data = JSON.parse(request.body.read)
+      data = Yajl::Parser.parse(request.body.read)
       event = Event.find(params[:id])
       return status(403) unless current_user.can_update? event
       event.organizer = current_user.db_instance

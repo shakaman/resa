@@ -26,6 +26,9 @@ gem 'sinatra-authentication', :git => 'git://github.com/spk/sinatra-authenticati
 # mail
 gem 'pony'
 
+# JSON
+gem 'yajl-ruby'
+
 # development
 group :development do
   gem 'capistrano'
