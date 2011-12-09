@@ -96,6 +96,7 @@ $(document).ready(function() {
                 html += '<div class="ui-button ui-button-text-only" style="background-color: ' + room.get('color') +'"><div class="ui-button-text">' + room.get('name') + '</div></div>';
             });
             this.el.html(html);
+            return this;
         }
     });
 
@@ -295,10 +296,9 @@ $(document).ready(function() {
     var events = new Events();
     var rooms = new Rooms();
     new EventsView({el: $("#main"), collection: events}).render();
-    rooms.fetch({success: function() { // need rooms config before displaying.
-        events.fetch();
-    }});
+    rooms.fetch().done(events.fetch); // need rooms config before displaying.
 });
+
 });
 
 var Wording = {

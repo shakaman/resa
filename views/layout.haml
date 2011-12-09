@@ -3,22 +3,13 @@
   %head
     %meta{:charset => "utf-8"}/
     %title= "Resa"
-
+    %link{:href => "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css",  :rel => "stylesheet"}
+    %link{:href => '/stylesheets/base.css', :rel => 'stylesheet', :type => 'text/css'}
   %body
-    %header
-      %h1 Resa
-      - if current_user.email
-        %div= current_user.email
-      %div= render_login_logout
-      - if current_user.admin?
-        %div
-          %a{:href => "/users"} Users
-          |
-          %a{:href => "/signup"} Add user
-
-    =yield
-
-    %footer
-      cody pony rox
+    = haml(:_header, :layout => false)
+    #main
+      .container
+        = yield
+    = haml(:_footer, :layout => false)
 
     %script{:src => 'javascripts/jquery.min.js', :type => 'text/javascript'}

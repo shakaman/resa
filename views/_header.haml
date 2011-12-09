@@ -1,0 +1,16 @@
+%header.topbar
+  %div.fill
+    .container
+      .brand 
+        %a{:href => '/'}
+          %img.logo{:src => "/images/resa.png"}
+      %ul.nav
+        - if current_user.admin?
+          %li
+            %a{:href => "/users"} Users
+          %li
+            %a{:href => "/signup"} Add user
+      - if current_user.email
+        %div.pull-right
+          %span.username= current_user.email
+          %span= render_login_logout
