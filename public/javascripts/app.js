@@ -83,6 +83,22 @@ $(document).ready(function() {
         }
     });
 
+    var LegendView = Backbone.View.extend({
+        el: $('#legend'),
+        initialize: function() {
+            _.bindAll(this);
+            this.collection.bind('reset', this.render);
+        },
+        render: function() {
+            var html = "";
+            rooms.each(function(room) {
+                //html += '<div style="float: left; width: 150px; margin: 15px; color: #fff; background-color: ' + room.get('color') +'">' + room.get('name') + '</div>';
+                html += '<div class="ui-button ui-button-text-only" style="background-color: ' + room.get('color') +'"><div class="ui-button-text">' + room.get('name') + '</div></div>';
+            });
+            this.el.html(html);
+        }
+    });
+
     var EventsView = Backbone.View.extend({
         initialize: function(){
             _.bindAll(this);
@@ -93,6 +109,7 @@ $(document).ready(function() {
             this.collection.bind('destroy', this.destroy);
 
             this.eventView = new EventView();
+            this.legendView = new LegendView({collection: rooms});
         },
         render: function() {
             this.el.fullCalendar({
