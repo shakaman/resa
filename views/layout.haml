@@ -6,7 +6,7 @@
 
   %body
     %header
-      %div Resa
+      %h1 Resa
       - if current_user.email
         %div= current_user.email
       %div= render_login_logout
@@ -17,6 +17,7 @@
           %a{:href => "/signup"} Add user
 
     =yield
+
     %footer
       cody pony rox
 
