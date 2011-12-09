@@ -131,9 +131,8 @@ $(document).ready(function() {
                 timeFormat: 'H:mm{ - H:mm}',
                 axisFormat: 'H:mm',
                 defaultView: 'agendaWeek',
-                firstHour: {
-                    week: 8,
-                    agendaDay: 8},
+                minTime: 8,
+                maxTime: 21,
                 allDayDefault: false,
                 allDaySlot: false,
                 selectable: true,
