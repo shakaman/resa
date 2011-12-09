@@ -130,6 +130,7 @@ $(document).ready(function() {
                 firstDay: 1,
                 timeFormat: 'H:mm{ - H:mm}',
                 axisFormat: 'H:mm',
+                defaultView: 'agendaWeek',
                 firstHour: {
                     week: 8,
                     agendaDay: 8},
