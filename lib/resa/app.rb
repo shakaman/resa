@@ -55,6 +55,23 @@ module Resa
       haml :rooms, :format => :html5, :layout => :layout
     end
 
+    get '/rooms/:id/edit' do
+      redirect '/' unless current_user && current_user.admin?
+      @room = Location.find params[:id]
+      haml :'rooms/edit', :format => :html5, :layout => :layout
+    end
+
+    post '/rooms/:id' do
+      redirect '/' unless current_user && current_user.admin?
+      @room = Location.find params[:id]
+      if @room.update_attributes(params[:room])
+        flash[:notice] = "Location updated."
+      else
+        flash[:error] = "Location not updated."
+      end
+      redirect "/rooms/#{@room.id}/edit"
+    end
+
     # Return all events
     get '/events' do
       login_required

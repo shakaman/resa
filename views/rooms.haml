@@ -1,5 +1,5 @@
 %h1 Rooms
 %section
   - @rooms.each do |r|
-    %p{style: "color: #{r.color}"}= r.name
+    %p= link_to r.name, "/rooms/#{r.id}/edit", style: "color: #{r.color}"
   = paginate @rooms
