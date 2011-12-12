@@ -5,10 +5,13 @@
       %p
         %label Title
         %input#title.field{:type => 'text'}
-      %p#rooms
       %p
-        %label Begin
-        %input#begin.field{:type => 'text'}
-      %p
-        %label End
-        %input#end.field{:type => 'text'}
+        %label Room
+        %span#rooms
+      %ul
+        %li
+          %label Begin
+          %input#begin.field{:type => 'text'}
+        %li
+          %label End
+          %input#end.field{:type => 'text'}

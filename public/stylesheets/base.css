@@ -44,5 +44,25 @@ footer #legend li span { font: normal 13px/20px Arial; }
 .fc-header-title h2 { font: bold 15px/20px Helvetica; }
 .fc-event-skin { font: normal 12px/15px Helvetica; color: #333; }
 
+#eventDialog label { display: inline-block; width: 50px; }
+#eventDialog ul { margin: 10px 0 0 0; }
+#eventDialog ul li { display: inline-block; width: 49%; }
+#eventDialog ul li label { width: auto; }
+#eventDialog ul li input { width: 60px; }
+
+
 /* Gritter */
 .gritter-with-image, .gritter-without-image { font-family: Helvetica; }
+
+
+
+/* login form */
+#sinatra_authentication { width: 195px; margin: 25px auto 0 auto; }
+#sinatra_authentication h1 { font: bold 25px/50px Helvetica; text-transform: uppercase; text-align: center; color: #b0dd65 }
+#sinatra_authenticatio form { width: 220px; display: block; margin: 17px auto 0 auto; padding: 0 0 0 18px; }
+#sinatra_authentication form .field { position: relative; display: block; width: 219px; height: 64px; margin: 0 0 0 -13px; background: url("/images/input.png") no-repeat scroll 0 11px transparent; border: none; }
+#sinatra_authentication form .field label { position: absolute; z-index: 1; top: 13px; left: 2px; width: 176px; height: 40px; margin: 12px 0 0 11px; padding: 1px 10px 0; font: normal 9px/40px Arial,'Helvetica Neue'; color: #869CB2; }
+#sinatra_authentication form .field input { position: absolute; z-index: 2; top: 0; left: 0; width: 176px; margin: 12px 0 0 11px; padding: 8px 10px 9px 10px; border: none; font: normal 20px Arial,'Helvetica Neue'; color: #384A5D; cursor: pointer; background: transparent; }
+#sinatra_authentication .sinatra_authentication_link { display: none; }
+#sinatra_authentication .buttons input { width: 100%; height: 30px; margin: 20px 0 0 0; }
+
