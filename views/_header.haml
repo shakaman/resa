@@ -2,6 +2,11 @@
   %p
     %a{:href => '/'}
       %img.logo{:src => "/images/logo-small.png"}
+
+  - if current_user.email
+    %ul
+      %li= current_user.email
+      %li= render_login_logout 
   
   %nav
     %ul
@@ -13,7 +18,4 @@
       %li
         %a{:href => "/rooms"} Rooms
   
-  - if current_user.email
-    %ul
-      %li= current_user.email
-      %li= render_login_logout
+

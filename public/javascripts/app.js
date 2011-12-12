@@ -92,8 +92,7 @@ $(document).ready(function() {
         render: function() {
             var html = "";
             rooms.each(function(room) {
-                //html += '<div style="float: left; width: 150px; margin: 15px; color: #fff; background-color: ' + room.get('color') +'">' + room.get('name') + '</div>';
-                html += '<div class="ui-button ui-button-text-only" style="background-color: ' + room.get('color') +'"><div class="ui-button-text">' + room.get('name') + '</div></div>';
+              html += '<li><span style="color: ' + room.get('color') +'">⬤</span> ' + room.get('name') + '</li>';
             });
             this.el.html(html);
             return this;
