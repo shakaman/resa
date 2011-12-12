@@ -7,14 +7,16 @@
     %link{:href => '/stylesheets/fullcalendar.css', :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => '/stylesheets/jquery.gritter.css', :rel => 'stylesheet', :type => 'text/css'}
     %link{:href => '/stylesheets/jquery.ui.timepicker.css', :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css",  :rel => "stylesheet"}
     %link{:href => '/stylesheets/base.css', :rel => 'stylesheet', :type => 'text/css'}
 
   %body
     = haml(:_header, :layout => false)
-    #main
+
+    %section#main
       =yield
+
     #legend
+      
     = haml(:_footer, :layout => false)
 
     %script{:src => 'javascripts/jquery.min.js', :type => 'text/javascript'}

@@ -3,13 +3,13 @@
 :locations:
   :cuisine:
     :name: 'Cuisine'
-    :color: '#dc322f'
+    :color: '#a3d03d'
   :bas:
     :name: 'Salle du bas'
-    :color: '#268bd2'
+    :color: '#e734a0'
   :haut:
     :name: 'Salle du haut'
-    :color: '#2aa198'
+    :color: '#8d3c98'
 :calendar:
   :server: './public/'
   :reservations: 'reservation.ics'

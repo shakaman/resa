@@ -1,18 +1,19 @@
-%header.topbar
-  %div.fill
-    .container
-      .brand
-        %a{:href => '/'}
-          %img.logo{:src => "/images/resa.png"}
-      %ul.nav
-        - if current_user.admin?
-          %li
-            %a{:href => "/users"} Users
-          %li
-            %a{:href => "/signup"} Add user
+%header
+  %p
+    %a{:href => '/'}
+      %img.logo{:src => "/images/logo-small.png"}
+  
+  %nav
+    %ul
+      - if current_user.admin?
         %li
-          %a{:href => "/rooms"} Rooms
-      - if current_user.email
-        %div.pull-right
-          %span.username= current_user.email
-          %span= render_login_logout
+          %a{:href => "/users"} Users
+        %li
+          %a{:href => "/signup"} Add user
+      %li
+        %a{:href => "/rooms"} Rooms
+  
+  - if current_user.email
+    %ul
+      %li= current_user.email
+      %li= render_login_logout
