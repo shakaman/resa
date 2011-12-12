@@ -1,0 +1,18 @@
+%form{:action => "/rooms/#{@room._id}", :method => 'post'}
+  %p
+    %label{:for => 'room_name'} Name
+    %input{:type => 'text', :value => @room.name, :name => 'room[name]', :id => 'room_name'}
+
+  %p
+    %label{:for => 'room_color'} Color
+    %input{:type => 'text', :value => @room.color, :name => 'room[color]', :id => 'room_color'}
+    #colorpicker
+
+  %p
+    %input{:type =>  'submit', :name => 'Save', :value => 'Save'}
+
+%script{:src => '/javascripts/farbtastic/farbtastic.js', :type => 'text/javascript'}
+%script{:type => "text/javascript"}
+  = "$(document).ready(function() {"
+  = "$('#colorpicker').farbtastic('#room_color');"
+  = "});"
