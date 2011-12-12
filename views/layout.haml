@@ -5,6 +5,8 @@
     %title= "Resa"
     %link{:href => "http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css",  :rel => "stylesheet"}
     %link{:href => '/stylesheets/base.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => "/javascripts/farbtastic/farbtastic.css",  :rel => "stylesheet"}
+    %script{:src => '/javascripts/jquery.min.js', :type => 'text/javascript'}
   %body
     = haml(:_header, :layout => false)
     #main
@@ -12,4 +14,3 @@
         = yield
     = haml(:_footer, :layout => false)
 
-    %script{:src => 'javascripts/jquery.min.js', :type => 'text/javascript'}
