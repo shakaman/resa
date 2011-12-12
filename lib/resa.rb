@@ -1,5 +1,6 @@
 # gems
 require 'mongoid'
+require 'kaminari/sinatra'
 require 'pathname'
 require 'sinatra-authentication'
 require 'user'

@@ -3,7 +3,7 @@ $(document).ready(function() {
     Backbone.Model.prototype.idAttribute = "_id";
     var Rooms = Backbone.Collection.extend({
         model: Room,
-        url: 'rooms',
+        url: 'rooms.json',
         parse: function(response) {
             _.each(response, function(room) {
                 room.id = room._id;

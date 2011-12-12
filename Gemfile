@@ -29,6 +29,12 @@ gem 'pony'
 # JSON
 gem 'yajl-ruby'
 
+# pagination
+# XXX: using git version for sinatra support
+# see https://github.com/udzura/kaminari/commit/1da155b15befe9b16cf7b05973072c5f8729017e
+gem 'kaminari', :require => 'kaminari/sinatra', :git => 'https://github.com/amatsuda/kaminari.git'
+gem 'padrino-helpers'
+
 # development
 group :development do
   gem 'capistrano'

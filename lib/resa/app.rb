@@ -9,6 +9,7 @@ require 'yajl'
 module Resa
   class App < Sinatra::Base
 
+    register Kaminari::Helpers::SinatraHelpers
     use Rack::Session::Cookie, :secret => 'cat on keyborad'
     use Rack::Flash
 
@@ -40,11 +41,18 @@ module Resa
     end
 
     # Return list of rooms
-    get '/rooms' do
+    get '/rooms.json' do
       session[:return_to] = '/'
       login_required
       content_type 'application/json', :charset => 'utf-8'
       Location.all.to_json
+    end
+
+    get '/rooms' do
+      session[:return_to] = '/'
+      login_required
+      @rooms = Location.page(params[:page])
+      haml :rooms, :format => :html5, :layout => :layout
     end
 
     # Return all events
