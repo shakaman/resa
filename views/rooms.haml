@@ -1,4 +1,5 @@
+%h1 Rooms
 %section
   - @rooms.each do |r|
-    %p= r.name
+    %p{style: "color: #{r.color}"}= r.name
   = paginate @rooms

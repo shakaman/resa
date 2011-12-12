@@ -1,7 +1,7 @@
 %header.topbar
   %div.fill
     .container
-      .brand 
+      .brand
         %a{:href => '/'}
           %img.logo{:src => "/images/resa.png"}
       %ul.nav
@@ -10,6 +10,8 @@
             %a{:href => "/users"} Users
           %li
             %a{:href => "/signup"} Add user
+        %li
+          %a{:href => "/rooms"} Rooms
       - if current_user.email
         %div.pull-right
           %span.username= current_user.email
