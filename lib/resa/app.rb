@@ -55,10 +55,37 @@ module Resa
       haml :rooms, :format => :html5, :layout => :layout
     end
 
+    get '/rooms/new' do
+      redirect '/' unless current_user && current_user.admin?
+      @room = Location.new :name => "", :color => '#555555'
+      @room._id = nil
+      haml :'rooms/edit', :format => :html5, :layout => :layout
+    end
+
+    post '/rooms/' do
+      redirect '/' unless current_user && current_user.admin?
+      @room = Location.create(params[:room])
+      if @room.persisted?
+        flash[:notice] = "Location created."
+        redirect "/rooms/#{@room.id}/edit"
+      else
+        flash[:error] = "Location not created."
+        @room._id = nil
+        haml :'rooms/edit', :format => :html5, :layout => :layout
+      end
+    end
+
     get '/rooms/:id/edit' do
       redirect '/' unless current_user && current_user.admin?
       @room = Location.find params[:id]
       haml :'rooms/edit', :format => :html5, :layout => :layout
+    end
+
+    get '/rooms/:id/delete' do # FIXME use a delete method here.
+      redirect '/' unless current_user && current_user.admin?
+      @room = Location.find params[:id]
+      @room.delete
+      redirect "/rooms"
     end
 
     post '/rooms/:id' do

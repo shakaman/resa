@@ -1,5 +1,10 @@
 %h1 Rooms
 %section
   - @rooms.each do |r|
-    %p= link_to r.name, "/rooms/#{r.id}/edit", :style => "color: #{r.color}"
+    %article
+      %span= link_to r.name, "/rooms/#{r.id}/edit", :style => "color: #{r.color}"
+      %span= link_to "Delete", "/rooms/#{r.id}/delete", :class=> "delete"
+
   = paginate @rooms
+
+  %p= link_to "Ajouter", "/rooms/new", :class=> "add"
