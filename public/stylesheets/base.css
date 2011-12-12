@@ -43,3 +43,6 @@ footer #legend li span { font: normal 13px/20px Arial; }
 .fc-button-content { height: 20px; line-height: 20px; }
 .fc-header-title h2 { font: bold 15px/20px Helvetica; }
 .fc-event-skin { font: normal 12px/15px Helvetica; color: #333; }
+
+/* Gritter */
+.gritter-with-image, .gritter-without-image { font-family: Helvetica; }
