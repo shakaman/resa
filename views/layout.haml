@@ -4,6 +4,8 @@
     %meta{:charset => "utf-8"}/
     %title= "Resa"
     %link{:href => '/stylesheets/base.css', :rel => 'stylesheet', :type => 'text/css'}
+    %link{:href => "/javascripts/farbtastic/farbtastic.css",  :rel => "stylesheet"}
+    %script{:src => '/javascripts/jquery.min.js', :type => 'text/javascript'}
   %body
     = haml(:_header, :layout => false)
     
@@ -12,4 +14,3 @@
 
     = haml(:_footer, :layout => false)
 
-    %script{:src => 'javascripts/jquery.min.js', :type => 'text/javascript'}

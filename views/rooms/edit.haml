@@ -1,13 +1,20 @@
 %h1 Edit « #{@room.name} »
 %section
-  %form{action: "/rooms/#{@room.id}", method: 'post'}
+  %form{:action => "/rooms/#{@room.id}", :method => 'post'}
     %p
-      %label{for: 'room_name'} Name
-      %input{type: 'text', value: @room.name, name: 'room[name]', id: 'room_name'}
+      %label{:for => 'room_name'} Name
+      %input{:type => 'text', :value => @room.name, :name => 'room[name]', :id => 'room_name'}
 
     %p
-      %label{for: 'room_color'} Color
-      %input{type: 'text', value: @room.color, color: 'room[color]', id: 'room_color'}
+      %label{:for => 'room_color'} Color
+      %input{:type => 'text', :value => @room.color, :name => 'room[color]', :id => 'room_color'}
+      #colorpicker
 
     %p
-      %input{type: 'submit', name: 'Save', value: 'Save'}
+      %input{:type =>  'submit', :name => 'Save', :value => 'Save'}
+
+%script{:src => '/javascripts/farbtastic/farbtastic.js', :type => 'text/javascript'}
+%script{:type => "text/javascript"}
+  = "$(document).ready(function() {"
+  = "$('#colorpicker').farbtastic('#room_color');"
+  = "});"
