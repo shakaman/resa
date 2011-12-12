@@ -296,7 +296,7 @@ $(document).ready(function() {
     var events = new Events();
     var rooms = new Rooms();
     new EventsView({el: $("#main"), collection: events}).render();
-    rooms.fetch().done(events.fetch); // need rooms config before displaying.
+    rooms.fetch().done(_.bind(events.fetch, events)); // need rooms config before displaying.
 });
 
 });
