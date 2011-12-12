@@ -32,7 +32,6 @@ module Resa
       end
     end
 
-    # Return rooms available now
     get '/' do
       session[:return_to] = '/'
       login_required
@@ -123,7 +122,7 @@ module Resa
 
     # 404
     not_found do
-      '404'
+      haml :not_found, :format => :html5, :layout => :layout
     end
 
   end
