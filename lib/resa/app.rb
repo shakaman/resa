@@ -84,7 +84,7 @@ module Resa
     get '/rooms/:id/delete' do # FIXME use a delete method here.
       redirect '/' unless current_user && current_user.admin?
       @room = Location.find params[:id]
-      @room.delete
+      @room.destroy
       redirect "/rooms"
     end
 
