@@ -152,6 +152,7 @@ $(document).ready(function() {
                 maxTime: 21,
                 allDayDefault: false,
                 allDaySlot: false,
+                weekends: false,
                 selectable: true,
                 selectHelper: true,
                 editable: true,
